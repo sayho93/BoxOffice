@@ -18,9 +18,11 @@ class MovieTableViewController: UIViewController, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: MovieTableViewCell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier, for: indexPath) as! MovieTableViewCell
+        guard let cell: MovieTableViewCell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier, for: indexPath) as? MovieTableViewCell else{
+            return UITableViewCell()
+        }
         let movie: Movie = self.movies[indexPath.row]
-        
+        cell.thumbImg.image = UIImage()
         cell.title.text = movie.title
         cell.info.text = movie.infoForTable
         cell.date.text = movie.date
@@ -38,7 +40,6 @@ class MovieTableViewController: UIViewController, UITableViewDataSource {
                 }
             }
         }
-        
         return cell
     }
     
@@ -70,6 +71,7 @@ class MovieTableViewController: UIViewController, UITableViewDataSource {
         self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         self.tabBarController?.tabBar.barTintColor = barColor
         self.tabBarController?.tabBar.tintColor = .white
+        self.tabBarController?.tabBar.unselectedItemTintColor = .lightText
     }
 
 
