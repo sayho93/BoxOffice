@@ -109,7 +109,11 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="Table" id="7Ph-8x-dgJ">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="ic_settings" id="o83-Kw-09l"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="ic_settings" id="o83-Kw-09l">
+                            <connections>
+                                <action selector="touchUpSettingBtn" destination="BYZ-38-t0r" id="uOB-uf-shb"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="1E3-4m-Z6h" id="hVS-KE-Onh"/>

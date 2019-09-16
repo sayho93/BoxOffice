@@ -74,14 +74,60 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
         return mutableString
     }
     
+    @IBAction func touchUpSettingBtn(){
+        self.showAlertController(style: .actionSheet)
+    }
+    
+    func showAlertController(style: UIAlertController.Style){
+        let alertController: UIAlertController
+        alertController = UIAlertController(title: "Title", message: "Message", preferredStyle: style)
+        
+        let okAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { (action: UIAlertAction) in
+            print("OK pressed")
+            guard let first = alertController.textFields![0].text else{return}
+            guard let last = alertController.textFields?.last!.text else{return}
+//            self.ID = first
+//            self.password = last
+            print(first)
+            print(last)
+        })
+        
+        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil)
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        
+        let handler: (UIAlertAction) -> Void
+        handler = {(action: UIAlertAction) in
+            print("action pressed \(action.title ?? "")")
+        }
+        
+        let someAction: UIAlertAction = UIAlertAction(title: "Some", style: UIAlertAction.Style.destructive, handler: handler)
+        let anotherAction: UIAlertAction = UIAlertAction(title: "Another", style: UIAlertAction.Style.default, handler: handler)
+        alertController.addAction(someAction)
+        alertController.addAction(anotherAction)
+        
+        if style == UIAlertController.Style.alert{
+            alertController.addTextField { (field: UITextField) in
+                field.placeholder = "ID"
+                field.textColor = .darkText
+            }
+            alertController.addTextField { (field: UITextField) in
+                field.placeholder = "password"
+                field.textColor = .darkText
+            }
+        }
+        
+        self.present(alertController, animated: true, completion: {
+            print("Alert controller shown")
+        })
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        navInit()
+        initNavigation()
         NotificationCenter.default.addObserver(self, selector: #selector(self.didReceiveMovieList(_:)), name: Notification.DidReceiveMovieList, object: nil)
-        RequestHandler.getMovieList {
-            return
-        }
-        initRefreshControl()
+        RequestHandler.getMovieList{return}
+        initRefresh()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -91,32 +137,7 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
-    private func initRefreshControl(){
-        tableView.refreshControl = refreshControl
-        refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
-        refreshControl.tintColor = UIColor(red: 80.0/255.0, green: 110.0/255.0, blue: 200.0/255.0, alpha: 0.5)
-        refreshControl.attributedTitle = NSAttributedString(string: "Fetching Movie Data ...", attributes: nil)
-    }
-    
-    @objc private func refreshData(_ sender: Any){
-        RequestHandler.getMovieList {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
-                self.refreshControl.endRefreshing()
-            })
-        }
-    }
-    
-    
-    @objc func didReceiveMovieList(_ noti: Notification){
-        guard let movies: [Movie] = noti.userInfo?["data"] as? [Movie] else{return}
-        self.movies = movies
-        
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-    }
-    
-    private func navInit(){
+    private func initNavigation(){
         self.navigationController?.navigationBar.tintColor = .white
         let barColor = UIColor(red: 80.0/255.0, green: 110.0/255.0, blue: 200.0/255.0, alpha: 0.5)
         self.navigationController?.navigationBar.barTintColor = barColor
@@ -125,6 +146,30 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
         self.tabBarController?.tabBar.barTintColor = barColor
         self.tabBarController?.tabBar.tintColor = .white
         self.tabBarController?.tabBar.unselectedItemTintColor = .lightText
+    }
+    
+    private func initRefresh(){
+        tableView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
+        refreshControl.tintColor = UIColor(red: 80.0/255.0, green: 110.0/255.0, blue: 200.0/255.0, alpha: 0.5)
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+//        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: nil)
+    }
+    
+    @objc private func refreshData(_ sender: Any){
+        RequestHandler.getMovieList {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: {
+                self.refreshControl.endRefreshing()
+            })
+        }
+    }
+    
+    @objc func didReceiveMovieList(_ noti: Notification){
+        guard let movies: [Movie] = noti.userInfo?["data"] as? [Movie] else{return}
+        self.movies = movies
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
