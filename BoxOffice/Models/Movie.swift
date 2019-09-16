@@ -38,3 +38,27 @@ struct Movie: Codable{
         case grade, thumb, id, title, date
     }
 }
+
+struct MovieDetail: Codable{
+    let audience: Int
+    let actor: String
+    let duration: Int
+    let director: String
+    let synopsis: String
+    let genre: String
+    let grade: Int
+    let image: String
+    let reservationGrade: Int
+    let title: String
+    let reservationRate: Double
+    let userRating: Double
+    let date: String
+    let id: String
+    
+    enum CodingKeys: String, CodingKey{
+        case reservationGrade = "reservation_grade"
+        case reservationRate = "reservation_rate"
+        case userRating = "user_rating"
+        case audience, actor, duration, director, synopsis, genre, grade, image, title, date, id
+    }
+}

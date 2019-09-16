@@ -19,6 +19,7 @@
 		119D95C32321FE6F00073B42 /* RequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119D95C22321FE6F00073B42 /* RequestHandler.swift */; };
 		119D95C52322327800073B42 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119D95C42322327800073B42 /* Movie.swift */; };
 		119D95C92326162900073B42 /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119D95C82326162900073B42 /* MovieTableViewCell.swift */; };
+		119D95CB2327815A00073B42 /* MovieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119D95CA2327815A00073B42 /* MovieDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		119D95C22321FE6F00073B42 /* RequestHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestHandler.swift; sourceTree = "<group>"; };
 		119D95C42322327800073B42 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		119D95C82326162900073B42 /* MovieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
+		119D95CA2327815A00073B42 /* MovieDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 			children = (
 				1197B6CD2320E44F00A29537 /* MovieTableViewController.swift */,
 				1197B6E32321D9B600A29537 /* MovieCollectionViewController.swift */,
+				119D95CA2327815A00073B42 /* MovieDetailViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -218,6 +221,7 @@
 				119D95BC2321ECA800073B42 /* Config.swift in Sources */,
 				1197B6CC2320E44F00A29537 /* AppDelegate.swift in Sources */,
 				119D95C32321FE6F00073B42 /* RequestHandler.swift in Sources */,
+				119D95CB2327815A00073B42 /* MovieDetailViewController.swift in Sources */,
 				1197B6E42321D9B600A29537 /* MovieCollectionViewController.swift in Sources */,
 				119D95C52322327800073B42 /* Movie.swift in Sources */,
 				119D95C12321FC1500073B42 /* HttpService.swift in Sources */,

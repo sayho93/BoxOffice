@@ -95,6 +95,7 @@
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="LXM-Ri-0P9"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="ZIi-uv-Plb"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -112,11 +113,27 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="1E3-4m-Z6h" id="hVS-KE-Onh"/>
+                        <segue destination="S6s-TQ-YMr" kind="show" identifier="movieDetailSegue" id="rIT-kc-gKK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1752.8" y="-160.34482758620689"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="J1v-Q8-Rn3">
+            <objects>
+                <viewController id="S6s-TQ-YMr" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="r7V-Fr-2ba">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Tds-AL-ULm"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ux1-JD-b7y" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2578" y="171"/>
         </scene>
         <!--Collection-->
         <scene sceneID="agK-Bi-3gZ">
@@ -131,6 +148,9 @@
                     <navigationItem key="navigationItem" title="Collection" id="WNh-YQ-bhI">
                         <barButtonItem key="rightBarButtonItem" title="Item" image="ic_settings" id="yKa-Mr-dPG"/>
                     </navigationItem>
+                    <connections>
+                        <segue destination="S6s-TQ-YMr" kind="show" identifier="movieDetailSegue" id="eis-TQ-gMc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cng-wA-WxM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -199,4 +219,7 @@
         <image name="ic_settings" width="24" height="24"/>
         <image name="ic_table" width="24" height="24"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="rIT-kc-gKK"/>
+    </inferredMetricsTieBreakers>
 </document>

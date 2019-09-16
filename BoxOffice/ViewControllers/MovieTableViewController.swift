@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MovieTableViewController: UIViewController, UITableViewDataSource {
+class MovieTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var tableView: UITableView!
     let cellIdentifier: String = "movieTableCell"
     var movies: [Movie] = []
@@ -30,7 +30,6 @@ class MovieTableViewController: UIViewController, UITableViewDataSource {
         DispatchQueue.global().async {
             guard let thumbURL: URL = URL(string: movie.thumb) else{return}
             guard let thumbData: Data = try? Data(contentsOf: thumbURL) else{return}
-            
             DispatchQueue.main.async {
                 if let index: IndexPath = tableView.indexPath(for: cell){
                     if index.row == indexPath.row{
@@ -43,14 +42,28 @@ class MovieTableViewController: UIViewController, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let data = movies[indexPath.row]
+        print(data)
+        self.performSegue(withIdentifier: "movieDetailSegue", sender: self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navInit()
         NotificationCenter.default.addObserver(self, selector: #selector(self.didReceiveMovieList(_:)), name: Notification.DidReceiveMovieList, object: nil)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let index = self.tableView.indexPathForSelectedRow{
+            self.tableView.deselectRow(at: index, animated: true)
+        }
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+//        self.navigationItem.title = countryName
         RequestHandler.getMovieList()
     }
     
@@ -72,6 +85,20 @@ class MovieTableViewController: UIViewController, UITableViewDataSource {
         self.tabBarController?.tabBar.barTintColor = barColor
         self.tabBarController?.tabBar.tintColor = .white
         self.tabBarController?.tabBar.unselectedItemTintColor = .lightText
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "movieDetailSegue"{
+            if let index = self.tableView.indexPathForSelectedRow?.row{
+                let row = movies[index]
+                guard let nextViewController: MovieDetailViewController = segue.destination as? MovieDetailViewController else{
+                    return
+                }
+                nextViewController.id = row.id
+            }
+        }else{
+            print("???")
+        }
     }
 
 
