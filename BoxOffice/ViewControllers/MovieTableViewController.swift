@@ -12,6 +12,7 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var tableView: UITableView!
     let cellIdentifier: String = "movieTableCell"
     var movies: [Movie] = []
+    private let refreshControl = UIRefreshControl()
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return movies.count
@@ -77,7 +78,10 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
         super.viewDidLoad()
         navInit()
         NotificationCenter.default.addObserver(self, selector: #selector(self.didReceiveMovieList(_:)), name: Notification.DidReceiveMovieList, object: nil)
-        RequestHandler.getMovieList()
+        RequestHandler.getMovieList {
+            return
+        }
+        initRefreshControl()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -87,11 +91,21 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-//        self.navigationItem.title = countryName
-        
+    private func initRefreshControl(){
+        tableView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
+        refreshControl.tintColor = UIColor(red: 80.0/255.0, green: 110.0/255.0, blue: 200.0/255.0, alpha: 0.5)
+        refreshControl.attributedTitle = NSAttributedString(string: "Fetching Movie Data ...", attributes: nil)
     }
+    
+    @objc private func refreshData(_ sender: Any){
+        RequestHandler.getMovieList {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
+                self.refreshControl.endRefreshing()
+            })
+        }
+    }
+    
     
     @objc func didReceiveMovieList(_ noti: Notification){
         guard let movies: [Movie] = noti.userInfo?["data"] as? [Movie] else{return}

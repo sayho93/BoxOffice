@@ -24,12 +24,13 @@ class RequestHandler{
     }
     //---------------------------------------
     
-    class func getMovieList(type: Int = 0){
+    class func getMovieList(type: Int = 0, callback: @escaping (() -> Void)){
         let url = Config.MOVIE_LIST_URL + Config.ORDER_TYPE_PARAMETER + String(type)
         HttpService.getJSON(url){ (data) -> Void in
             do{
                 let apiResponse: MovieList = try JSONDecoder().decode(MovieList.self, from: data)
                 NotificationCenter.default.post(name: Notification.DidReceiveMovieList, object: nil, userInfo: ["data": apiResponse.movies])
+                callback()
             }catch(let err){
                 print(err.localizedDescription)
             }
