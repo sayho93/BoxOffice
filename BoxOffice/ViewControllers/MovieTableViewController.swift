@@ -23,9 +23,10 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
         }
         let movie: Movie = self.movies[indexPath.row]
         cell.thumbImg.image = UIImage()
-        cell.title.text = movie.title
         cell.info.text = movie.infoForTable
         cell.date.text = movie.date
+        let mutableString = makeAttributedString(movie: movie, cell: cell)
+        cell.title.attributedText = mutableString
         
         DispatchQueue.global().async {
             guard let thumbURL: URL = URL(string: movie.thumb) else{return}
@@ -48,10 +49,35 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
         self.performSegue(withIdentifier: "movieDetailSegue", sender: self)
     }
     
+    func makeAttributedString(movie: Movie, cell: MovieTableViewCell) -> NSMutableAttributedString{
+        let mutableString = NSMutableAttributedString(string: movie.title + " ")
+        let attachment = NSTextAttachment()
+        switch movie.grade {
+        case 0:
+            attachment.image = UIImage(named: "ic_allages")
+        case 12:
+            attachment.image = UIImage(named: "ic_12")
+        case 15:
+            attachment.image = UIImage(named: "ic_15")
+        case 19:
+            attachment.image = UIImage(named: "ic_19")
+        default:
+            attachment.image = UIImage()
+        }
+        
+        attachment.bounds = CGRect(x: 0, y: (cell.title.font.capHeight - (attachment.image?.size.height)!).rounded() / 2, width: (attachment.image?.size.width)!, height: (attachment.image?.size.height)!)
+        
+        let imageAttribute = NSAttributedString(attachment: attachment)
+        mutableString.append(imageAttribute)
+        
+        return mutableString
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navInit()
         NotificationCenter.default.addObserver(self, selector: #selector(self.didReceiveMovieList(_:)), name: Notification.DidReceiveMovieList, object: nil)
+        RequestHandler.getMovieList()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,7 +90,7 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 //        self.navigationItem.title = countryName
-        RequestHandler.getMovieList()
+        
     }
     
     @objc func didReceiveMovieList(_ noti: Notification){
