@@ -80,20 +80,9 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
     
     func showAlertController(style: UIAlertController.Style){
         let alertController: UIAlertController
-        alertController = UIAlertController(title: "Title", message: "Message", preferredStyle: style)
+        alertController = UIAlertController(title: "정렬방식 선택", message: "영화를 어떤 순서로 정렬할까요?", preferredStyle: style)
         
-        let okAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { (action: UIAlertAction) in
-            print("OK pressed")
-            guard let first = alertController.textFields![0].text else{return}
-            guard let last = alertController.textFields?.last!.text else{return}
-//            self.ID = first
-//            self.password = last
-            print(first)
-            print(last)
-        })
-        
-        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil)
-        alertController.addAction(okAction)
+        let cancelAction: UIAlertAction = UIAlertAction(title: "취소", style: UIAlertAction.Style.cancel, handler: nil)
         alertController.addAction(cancelAction)
         
         let handler: (UIAlertAction) -> Void
@@ -101,21 +90,13 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
             print("action pressed \(action.title ?? "")")
         }
         
-        let someAction: UIAlertAction = UIAlertAction(title: "Some", style: UIAlertAction.Style.destructive, handler: handler)
-        let anotherAction: UIAlertAction = UIAlertAction(title: "Another", style: UIAlertAction.Style.default, handler: handler)
-        alertController.addAction(someAction)
-        alertController.addAction(anotherAction)
+        let reservationRate: UIAlertAction = UIAlertAction(title: "예매율", style: UIAlertAction.Style.default, handler: handler)
+        let grade: UIAlertAction = UIAlertAction(title: "평점", style: UIAlertAction.Style.default, handler: handler)
+        let date: UIAlertAction = UIAlertAction(title: "개봉일", style: UIAlertAction.Style.default, handler: handler)
+        alertController.addAction(reservationRate)
+        alertController.addAction(grade)
+        alertController.addAction(date)
         
-        if style == UIAlertController.Style.alert{
-            alertController.addTextField { (field: UITextField) in
-                field.placeholder = "ID"
-                field.textColor = .darkText
-            }
-            alertController.addTextField { (field: UITextField) in
-                field.placeholder = "password"
-                field.textColor = .darkText
-            }
-        }
         
         self.present(alertController, animated: true, completion: {
             print("Alert controller shown")
