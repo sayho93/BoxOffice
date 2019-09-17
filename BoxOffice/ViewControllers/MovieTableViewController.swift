@@ -13,6 +13,7 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
     let cellIdentifier: String = "movieTableCell"
     var movies: [Movie] = []
     private let refreshControl = UIRefreshControl()
+    private var sortFlag: Int = 0
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return movies.count
@@ -85,18 +86,32 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
         let cancelAction: UIAlertAction = UIAlertAction(title: "취소", style: UIAlertAction.Style.cancel, handler: nil)
         alertController.addAction(cancelAction)
         
-        let handler: (UIAlertAction) -> Void
-        handler = {(action: UIAlertAction) in
-            print("action pressed \(action.title ?? "")")
+//        let handler: (UIAlertAction) -> Void
+//        handler = {(action: UIAlertAction) in
+//            print("action pressed \(action.title ?? "")")
+//        }
+        
+        let handler: (Int) -> Void = {(type: Int) in
+            self.sortFlag = type
+            self.setNavbarTitle()
+            RequestHandler.getMovieList(type: type, callback: {
+                return
+            })
         }
         
-        let reservationRate: UIAlertAction = UIAlertAction(title: "예매율", style: UIAlertAction.Style.default, handler: handler)
-        let grade: UIAlertAction = UIAlertAction(title: "평점", style: UIAlertAction.Style.default, handler: handler)
-        let date: UIAlertAction = UIAlertAction(title: "개봉일", style: UIAlertAction.Style.default, handler: handler)
+        let reservationRate: UIAlertAction = UIAlertAction(title: "예매율", style: UIAlertAction.Style.default, handler: { action in
+            handler(0)
+        })
+        let curation: UIAlertAction = UIAlertAction(title: "큐레이션", style: UIAlertAction.Style.default, handler: {action in
+            handler(1)
+        })
+        let date: UIAlertAction = UIAlertAction(title: "개봉일", style: UIAlertAction.Style.default, handler: {action in
+            handler(2)
+        })
         alertController.addAction(reservationRate)
-        alertController.addAction(grade)
+        alertController.addAction(curation)
         alertController.addAction(date)
-        
+//
         
         self.present(alertController, animated: true, completion: {
             print("Alert controller shown")
@@ -116,6 +131,27 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
         if let index = self.tableView.indexPathForSelectedRow{
             self.tableView.deselectRow(at: index, animated: true)
         }
+        setNavbarTitle()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+    }
+    
+    private func setNavbarTitle(){
+        var titleTxt: String
+        switch sortFlag {
+        case 0:
+            titleTxt = "예매율순"
+        case 1:
+            titleTxt = "큐레이션"
+        case 2:
+            titleTxt = "개봉일순"
+        default:
+            titleTxt = "table"
+        }
+        self.navigationController?.navigationBar.topItem?.title = titleTxt
     }
     
     private func initNavigation(){
@@ -163,7 +199,7 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
                 nextViewController.id = row.id
             }
         }else{
-            print("???")
+            fatalError("invalid identifier")
         }
     }
 
