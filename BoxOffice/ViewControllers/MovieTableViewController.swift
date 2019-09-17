@@ -86,11 +86,6 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
         let cancelAction: UIAlertAction = UIAlertAction(title: "취소", style: UIAlertAction.Style.cancel, handler: nil)
         alertController.addAction(cancelAction)
         
-//        let handler: (UIAlertAction) -> Void
-//        handler = {(action: UIAlertAction) in
-//            print("action pressed \(action.title ?? "")")
-//        }
-        
         let handler: (Int) -> Void = {(type: Int) in
             self.sortFlag = type
             self.setNavbarTitle()
@@ -111,7 +106,6 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
         alertController.addAction(reservationRate)
         alertController.addAction(curation)
         alertController.addAction(date)
-//
         
         self.present(alertController, animated: true, completion: {
             print("Alert controller shown")
@@ -134,11 +128,6 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
         setNavbarTitle()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-    }
-    
     private func setNavbarTitle(){
         var titleTxt: String
         switch sortFlag {
@@ -154,7 +143,7 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
         self.navigationController?.navigationBar.topItem?.title = titleTxt
     }
     
-    private func initNavigation(){
+    func initNavigation(){
         self.navigationController?.navigationBar.tintColor = .white
         let barColor = UIColor(red: 80.0/255.0, green: 110.0/255.0, blue: 200.0/255.0, alpha: 0.5)
         self.navigationController?.navigationBar.barTintColor = barColor
@@ -202,7 +191,5 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
             fatalError("invalid identifier")
         }
     }
-
-
 }
 
