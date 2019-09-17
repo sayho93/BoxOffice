@@ -14,6 +14,7 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
     var movies: [Movie] = []
     private let refreshControl = UIRefreshControl()
     private var sortFlag: Int = 0
+    private var tabBarVC: MovieTabController!
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return movies.count
@@ -90,7 +91,7 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
             self.sortFlag = type
             self.setNavbarTitle()
             RequestHandler.getMovieList(type: type, callback: {
-                return
+                self.tabBarVC.movies = self.movies
             })
         }
         
@@ -116,7 +117,10 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
         super.viewDidLoad()
         initNavigation()
         NotificationCenter.default.addObserver(self, selector: #selector(self.didReceiveMovieList(_:)), name: Notification.DidReceiveMovieList, object: nil)
-        RequestHandler.getMovieList{return}
+        RequestHandler.getMovieList{
+            self.tabBarVC = self.tabBarController as? MovieTabController
+            self.tabBarVC.movies = self.movies
+        }
         initRefresh()
     }
     
@@ -164,6 +168,7 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
     
     @objc private func refreshData(_ sender: Any){
         RequestHandler.getMovieList {
+            self.tabBarVC.movies = self.movies
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: {
                 self.refreshControl.endRefreshing()
             })
@@ -174,7 +179,10 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
         guard let movies: [Movie] = noti.userInfo?["data"] as? [Movie] else{return}
         self.movies = movies
         DispatchQueue.main.async {
-            self.tableView.reloadData()
+            let range = NSMakeRange(0, self.tableView.numberOfSections)
+            let sections = NSIndexSet(indexesIn: range)   
+            self.tableView.reloadSections(sections as IndexSet, with: .automatic)
+//            self.tableView.reloadData()
         }
     }
     
