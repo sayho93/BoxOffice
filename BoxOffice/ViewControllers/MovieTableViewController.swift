@@ -163,11 +163,10 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
         refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
         refreshControl.tintColor = UIColor(red: 80.0/255.0, green: 110.0/255.0, blue: 200.0/255.0, alpha: 0.5)
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
-//        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: nil)
     }
     
     @objc private func refreshData(_ sender: Any){
-        RequestHandler.getMovieList {
+        RequestHandler.getMovieList(type: self.sortFlag) {
             self.tabBarVC.movies = self.movies
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: {
                 self.refreshControl.endRefreshing()
@@ -180,9 +179,8 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
         self.movies = movies
         DispatchQueue.main.async {
             let range = NSMakeRange(0, self.tableView.numberOfSections)
-            let sections = NSIndexSet(indexesIn: range)   
+            let sections = NSIndexSet(indexesIn: range)
             self.tableView.reloadSections(sections as IndexSet, with: .automatic)
-//            self.tableView.reloadData()
         }
     }
     

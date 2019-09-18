@@ -12,6 +12,7 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
     @IBOutlet weak var collectionView: UICollectionView!
     let cellIdentifier: String = "movieCollectionCell"
     var movies: [Movie] = []
+    private var flowLayout: UICollectionViewFlowLayout!
     private let refreshControl = UIRefreshControl()
     private var sortFlag = 0
     
@@ -39,7 +40,7 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
                 cell.setNeedsLayout()
                 
 //                if let index: IndexPath = collectionView.indexPath(for: cell){
-//                    if index.row == indexPath.row{
+//                    if index.row == indexPath.row && index.section == indexPath.section{
 //                        cell.thumbImg.image = UIImage(data: thumbData)
 //                        cell.setNeedsLayout()
 //                    }
@@ -76,6 +77,16 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
     override func viewDidLoad() {
         super.viewDidLoad()
         initNavigation()
+        
+        let halfWidth: CGFloat = UIScreen.main.bounds.width / 2.0
+        
+        flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .vertical
+        flowLayout.sectionInset = UIEdgeInsets.init(top: 5, left: 5, bottom: 5, right: 5)
+        flowLayout.minimumLineSpacing = 0
+        flowLayout.minimumInteritemSpacing = 0
+        flowLayout.itemSize = CGSize(width: halfWidth - 5, height: halfWidth + 50)
+        self.collectionView.collectionViewLayout = flowLayout
     }
     
     override func viewWillAppear(_ animated: Bool) {
