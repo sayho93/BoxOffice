@@ -13,7 +13,7 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
     let cellIdentifier: String = "movieTableCell"
     var movies: [Movie] = []
     private let refreshControl = UIRefreshControl()
-    private var sortFlag: Int = 0
+//    private var sortFlag: Int = 0
     private var tabBarVC: MovieTabController!
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -88,7 +88,7 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
         alertController.addAction(cancelAction)
         
         let handler: (Int) -> Void = {(type: Int) in
-            self.sortFlag = type
+            self.tabBarVC.sortFlag = type
             self.setNavbarTitle()
             RequestHandler.getMovieList(type: type, callback: {
                 self.tabBarVC.movies = self.movies
@@ -117,8 +117,9 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
         super.viewDidLoad()
         initNavigation()
         NotificationCenter.default.addObserver(self, selector: #selector(self.didReceiveMovieList(_:)), name: Notification.DidReceiveMovieList, object: nil)
+        self.tabBarVC = self.tabBarController as? MovieTabController
         RequestHandler.getMovieList{
-            self.tabBarVC = self.tabBarController as? MovieTabController
+//            self.tabBarVC = self.tabBarController as? MovieTabController
             self.tabBarVC.movies = self.movies
         }
         initRefresh()
@@ -134,7 +135,8 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
     
     private func setNavbarTitle(){
         var titleTxt: String
-        switch sortFlag {
+        
+        switch tabBarVC.sortFlag {
         case 0:
             titleTxt = "예매율순"
         case 1:
@@ -166,7 +168,7 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     @objc private func refreshData(_ sender: Any){
-        RequestHandler.getMovieList(type: self.sortFlag) {
+        RequestHandler.getMovieList(type: tabBarVC.sortFlag) {
             self.tabBarVC.movies = self.movies
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: {
                 self.refreshControl.endRefreshing()

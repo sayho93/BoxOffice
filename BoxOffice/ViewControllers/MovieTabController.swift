@@ -10,6 +10,7 @@ import UIKit
 
 class MovieTabController: UITabBarController {
     var movies: [Movie] = []
+    var sortFlag: Int = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
