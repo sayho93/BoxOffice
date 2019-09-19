@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MovieCollectionViewController: UIViewController, UICollectionViewDataSource {
+class MovieCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     @IBOutlet weak var collectionView: UICollectionView!
     let cellIdentifier: String = "movieCollectionCell"
     var movies: [Movie] = []
@@ -48,6 +48,10 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
             }
         }
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "movieDetailSegue", sender: self)
     }
     
     func makeAttributedString(movie: Movie, cell: MovieCollectionViewCell) -> NSMutableAttributedString{
@@ -196,4 +200,18 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "movieDetailSegue"{
+            if let index = self.collectionView.indexPathsForSelectedItems{
+                guard let idx = index.first?.row else { return }
+                let row = movies[idx]
+                guard let nextViewController: MovieDetailViewController = segue.destination as? MovieDetailViewController else{
+                    return
+                }
+                nextViewController.id = row.id
+            }
+        }else{
+            fatalError("invalid identifier")
+        }
+    }
 }

@@ -211,6 +211,7 @@
                                 </cells>
                                 <connections>
                                     <outlet property="dataSource" destination="a4z-D7-sR9" id="nau-hz-9py"/>
+                                    <outlet property="delegate" destination="a4z-D7-sR9" id="wND-5t-KKL"/>
                                 </connections>
                             </collectionView>
                         </subviews>

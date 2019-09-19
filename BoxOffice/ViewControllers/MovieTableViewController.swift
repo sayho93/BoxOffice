@@ -46,8 +46,6 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let data = movies[indexPath.row]
-        print(data)
         self.performSegue(withIdentifier: "movieDetailSegue", sender: self)
     }
     
