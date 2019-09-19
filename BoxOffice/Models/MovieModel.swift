@@ -31,6 +31,10 @@ struct Movie: Codable{
         return "평점 : \(self.userRating) 예매순위 : \(self.reservationGrade) 예매율 : \(self.reservationRate)"
     }
     
+    var infoForCollection: String{
+        return "\(reservationGrade)위(\(userRating)) / \(reservationRate)"
+    }
+    
     enum CodingKeys: String, CodingKey{
         case userRating = "user_rating"
         case reservationGrade = "reservation_grade"
