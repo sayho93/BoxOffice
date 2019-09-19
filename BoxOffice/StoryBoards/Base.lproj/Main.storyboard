@@ -224,7 +224,11 @@
                         <viewLayoutGuide key="safeArea" id="IDs-1g-4Sb"/>
                     </view>
                     <navigationItem key="navigationItem" title="Collection" id="WNh-YQ-bhI">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="ic_settings" id="yKa-Mr-dPG"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="ic_settings" id="yKa-Mr-dPG">
+                            <connections>
+                                <action selector="touchUpSettingBtn" destination="a4z-D7-sR9" id="Tjd-C1-GDo"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="swM-1j-Qiz" id="hF8-4n-WP9"/>

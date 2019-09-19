@@ -75,6 +75,43 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
         return mutableString
     }
     
+    @IBAction func touchUpSettingBtn(){
+        self.showAlertController(style: .actionSheet)
+    }
+    
+    func showAlertController(style: UIAlertController.Style){
+        let alertController: UIAlertController
+        alertController = UIAlertController(title: "정렬방식 선택", message: "영화를 어떤 순서로 정렬할까요?", preferredStyle: style)
+        
+        let cancelAction: UIAlertAction = UIAlertAction(title: "취소", style: UIAlertAction.Style.cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        let handler: (Int) -> Void = {(type: Int) in
+            self.sortFlag = type
+            self.setNavbarTitle()
+            RequestHandler.getMovieList(type: type, callback: {
+                self.tabBarVC.movies = self.movies
+            })
+        }
+        
+        let reservationRate: UIAlertAction = UIAlertAction(title: "예매율", style: UIAlertAction.Style.default, handler: { action in
+            handler(0)
+        })
+        let curation: UIAlertAction = UIAlertAction(title: "큐레이션", style: UIAlertAction.Style.default, handler: {action in
+            handler(1)
+        })
+        let date: UIAlertAction = UIAlertAction(title: "개봉일", style: UIAlertAction.Style.default, handler: {action in
+            handler(2)
+        })
+        alertController.addAction(reservationRate)
+        alertController.addAction(curation)
+        alertController.addAction(date)
+        
+        self.present(alertController, animated: true, completion: {
+            print("Alert controller shown")
+        })
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         initNavigation()
@@ -89,11 +126,29 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let tabBarVC = self.tabBarController as! MovieTabController
-        self.movies = tabBarVC.movies
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
+        super.viewWillAppear(animated)
+        
+        if let index = self.collectionView.indexPathsForSelectedItems{
+            for idx in index{
+                self.collectionView.deselectItem(at: idx, animated: true)
+            }
         }
+        setNavbarTitle()
+    }
+    
+    private func setNavbarTitle(){
+        var titleTxt: String
+        switch sortFlag {
+        case 0:
+            titleTxt = "예매율순"
+        case 1:
+            titleTxt = "큐레이션"
+        case 2:
+            titleTxt = "개봉일순"
+        default:
+            titleTxt = "table"
+        }
+        self.navigationController?.navigationBar.topItem?.title = titleTxt
     }
     
     private func initCollectionView(){
