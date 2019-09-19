@@ -13,7 +13,6 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
     let cellIdentifier: String = "movieTableCell"
     var movies: [Movie] = []
     private let refreshControl = UIRefreshControl()
-//    private var sortFlag: Int = 0
     private var tabBarVC: MovieTabController!
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -119,7 +118,6 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
         NotificationCenter.default.addObserver(self, selector: #selector(self.didReceiveMovieList(_:)), name: Notification.DidReceiveMovieList, object: nil)
         self.tabBarVC = self.tabBarController as? MovieTabController
         RequestHandler.getMovieList{
-//            self.tabBarVC = self.tabBarController as? MovieTabController
             self.tabBarVC.movies = self.movies
         }
         initRefresh()

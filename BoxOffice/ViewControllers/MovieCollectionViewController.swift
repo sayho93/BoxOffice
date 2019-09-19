@@ -14,7 +14,6 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
     var movies: [Movie] = []
     private var flowLayout: UICollectionViewFlowLayout!
     private let refreshControl = UIRefreshControl()
-    private var sortFlag = 0
     private var tabBarVC: MovieTabController!
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -87,7 +86,8 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
         alertController.addAction(cancelAction)
         
         let handler: (Int) -> Void = {(type: Int) in
-            self.sortFlag = type
+            self.tabBarVC.sortFlag = type
+//            self.sortFlag = type
             self.setNavbarTitle()
             RequestHandler.getMovieList(type: type, callback: {
                 self.tabBarVC.movies = self.movies
@@ -117,8 +117,8 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
         initNavigation()
         initCollectionView()
         NotificationCenter.default.addObserver(self, selector: #selector(self.didReceiveMovieList(_:)), name: Notification.DidReceiveMovieList, object: nil)
+        self.tabBarVC = self.tabBarController as? MovieTabController
         RequestHandler.getMovieList{
-            self.tabBarVC = self.tabBarController as? MovieTabController
             self.tabBarVC.movies = self.movies
         }
         initRefresh()
@@ -126,8 +126,7 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        super.viewWillAppear(animated)
-        
+
         if let index = self.collectionView.indexPathsForSelectedItems{
             for idx in index{
                 self.collectionView.deselectItem(at: idx, animated: true)
@@ -138,7 +137,7 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
     
     private func setNavbarTitle(){
         var titleTxt: String
-        switch sortFlag {
+        switch tabBarVC.sortFlag {
         case 0:
             titleTxt = "예매율순"
         case 1:
@@ -148,6 +147,7 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
         default:
             titleTxt = "table"
         }
+        
         self.navigationController?.navigationBar.topItem?.title = titleTxt
     }
     
@@ -178,7 +178,7 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
     }
     
     @objc private func refreshData(_ sender: Any){
-        RequestHandler.getMovieList(type: self.sortFlag) {
+        RequestHandler.getMovieList(type: self.tabBarVC.sortFlag) {
             self.tabBarVC.movies = self.movies
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: {
                 self.refreshControl.endRefreshing()
