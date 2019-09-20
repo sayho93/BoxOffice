@@ -209,6 +209,7 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
                     return
                 }
                 nextViewController.id = row.id
+                nextViewController.navigationTitle = row.title
             }
         }else{
             fatalError("invalid identifier")

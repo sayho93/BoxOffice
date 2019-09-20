@@ -124,10 +124,10 @@
             </objects>
             <point key="canvasLocation" x="1752.8" y="-160.34482758620689"/>
         </scene>
-        <!--View Controller-->
+        <!--Movie Detail View Controller-->
         <scene sceneID="J1v-Q8-Rn3">
             <objects>
-                <viewController id="S6s-TQ-YMr" sceneMemberID="viewController">
+                <viewController id="S6s-TQ-YMr" customClass="MovieDetailViewController" customModule="BoxOffice" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="r7V-Fr-2ba">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

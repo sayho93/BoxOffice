@@ -37,7 +37,7 @@ class RequestHandler{
         }
     }
     
-    class func getMovieDetail(id: Int){
+    class func getMovieDetail(id: String){
         let url = Config.MOVIE_URL + "?id=\(id)"
         
         HttpService.getJSON(url){ (data) -> Void in
