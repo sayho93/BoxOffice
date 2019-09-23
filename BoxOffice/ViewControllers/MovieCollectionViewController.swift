@@ -31,6 +31,7 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
         cell.date.text = movie.date
         let mutableString = makeAttributedString(movie: movie, cell: cell)
         cell.title.attributedText = mutableString
+        cell.title.adjustsFontSizeToFitWidth = true
         
         DispatchQueue.global().async {
             guard let thumbURL: URL = URL(string: movie.thumb) else{return}
@@ -160,8 +161,7 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
 
     private func initNavigation(){
         self.navigationController?.navigationBar.tintColor = .white
-        let barColor = UIColor(red: 80.0/255.0, green: 110.0/255.0, blue: 200.0/255.0, alpha: 0.5)
-        self.navigationController?.navigationBar.barTintColor = barColor
+        self.navigationController?.navigationBar.barTintColor = Config.colors.themeColor
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
     }
@@ -169,7 +169,7 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
     private func initRefresh(){
         collectionView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
-        refreshControl.tintColor = UIColor(red: 80.0/255.0, green: 110.0/255.0, blue: 200.0/255.0, alpha: 0.5)
+        refreshControl.tintColor = Config.colors.themeColor
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
     }
     

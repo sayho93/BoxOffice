@@ -29,6 +29,7 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
         cell.date.text = movie.date
         let mutableString = makeAttributedString(movie: movie, cell: cell)
         cell.title.attributedText = mutableString
+        cell.title.adjustsFontSizeToFitWidth = true
         
         DispatchQueue.global().async {
             guard let thumbURL: URL = URL(string: movie.thumb) else{return}
@@ -146,11 +147,10 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
     
     func initNavigation(){
         self.navigationController?.navigationBar.tintColor = .white
-        let barColor = UIColor(red: 80.0/255.0, green: 110.0/255.0, blue: 200.0/255.0, alpha: 0.5)
-        self.navigationController?.navigationBar.barTintColor = barColor
+        self.navigationController?.navigationBar.barTintColor = Config.colors.themeColor
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
-        self.tabBarController?.tabBar.barTintColor = barColor
+        self.tabBarController?.tabBar.barTintColor = Config.colors.themeColor
         self.tabBarController?.tabBar.tintColor = .white
         self.tabBarController?.tabBar.unselectedItemTintColor = .lightText
     }
@@ -158,7 +158,7 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
     private func initRefresh(){
         tableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
-        refreshControl.tintColor = UIColor(red: 80.0/255.0, green: 110.0/255.0, blue: 200.0/255.0, alpha: 0.5)
+        refreshControl.tintColor = Config.colors.themeColor
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
     }
     

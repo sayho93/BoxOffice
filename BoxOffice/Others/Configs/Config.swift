@@ -7,13 +7,16 @@
 //
 
 import Foundation
+import UIKit
 
 struct Config{
+    struct colors{
+        static let themeColor: UIColor = UIColor(red: 80.0/255.0, green: 110.0/255.0, blue: 200.0/255.0, alpha: 0.5)
+    }
     static let API_BASE_URL: String = "https://connect-boxoffice.run.goorm.io/"
     static let MOVIE_LIST_URL: String = API_BASE_URL + "/movies"
     static let ORDER_TYPE_PARAMETER: String = "?order_type="
     static let MOVIE_URL: String = API_BASE_URL + "/movie"
-    
 }
 
 extension Notification {

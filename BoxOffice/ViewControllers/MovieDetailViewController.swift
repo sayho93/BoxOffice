@@ -12,6 +12,11 @@ class MovieDetailViewController: UIViewController {
     var id: String!
     private var movie: MovieDetail!
     var navigationTitle: String!
+    
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var movieTitle: UILabel!
+    @IBOutlet weak var date: UILabel!
+    @IBOutlet weak var movieInfo: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,8 +32,5 @@ class MovieDetailViewController: UIViewController {
     @objc func didReceiveMovieDetail(_ noti: Notification){
         guard let movieInfo: MovieDetail = noti.userInfo?["data"] as? MovieDetail  else{return}
         self.movie = movieInfo
-        DispatchQueue.main.async {
-//            self.navigationController?.navigationBar.topItem?.title = self.movie.title
-        }
     }
 }
