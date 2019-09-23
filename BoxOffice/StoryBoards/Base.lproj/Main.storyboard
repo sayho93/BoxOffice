@@ -146,7 +146,7 @@
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3kQ-0q-fJR">
                                                         <rect key="frame" x="0.0" y="0.0" width="230" height="30.333333333333332"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -176,7 +176,7 @@
                                         </constraints>
                                     </stackView>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="93m-h2-R3C">
-                                        <rect key="frame" x="10" y="152" width="355" height="118"/>
+                                        <rect key="frame" x="10" y="152.33333333333334" width="355" height="117.66666666666666"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </containerView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="liD-Z7-UZs">
@@ -190,7 +190,7 @@
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="예매율" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xav-rg-xvr">
                                                                 <rect key="frame" x="36.333333333333336" y="0.0" width="52.000000000000007" height="49.666666666666664"/>
-                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -221,8 +221,8 @@
                                                         <rect key="frame" x="0.0" y="10" width="124.33333333333333" height="107.66666666666667"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="평점" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3vU-IK-mCA">
-                                                                <rect key="frame" x="47.333333333333329" y="0.0" width="29.666666666666671" height="42"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <rect key="frame" x="45.000000000000014" y="0.0" width="34.666666666666671" height="42"/>
+                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -260,8 +260,8 @@
                                                         <rect key="frame" x="0.0" y="19.999999999999972" width="124.33333333333333" height="87.666666666666671"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="누적관객수" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Phj-pc-ms7">
-                                                                <rect key="frame" x="25.333333333333343" y="0.0" width="73.666666666666671" height="49.666666666666664"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <rect key="frame" x="19.000000000000028" y="0.0" width="86.666666666666671" height="49.666666666666664"/>
+                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -321,10 +321,14 @@
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="lXK-uO-5I3"/>
                     <connections>
+                        <outlet property="accumulate" destination="1VW-y9-esp" id="1Jq-Jm-ELE"/>
                         <outlet property="date" destination="RZD-J1-4P3" id="d8B-I8-UIj"/>
                         <outlet property="imageView" destination="E3w-UR-s0b" id="fjL-28-8Yx"/>
                         <outlet property="movieInfo" destination="tEb-JX-Wo1" id="M2Z-go-Ytm"/>
                         <outlet property="movieTitle" destination="3kQ-0q-fJR" id="cbN-tK-JdS"/>
+                        <outlet property="rate" destination="U6p-WW-lb4" id="KOp-K9-HUg"/>
+                        <outlet property="rateStar" destination="SRb-Yv-agb" id="DIQ-Jh-Z3A"/>
+                        <outlet property="reservationRate" destination="3Yw-u3-pA3" id="fYf-bo-XUH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ux1-JD-b7y" userLabel="First Responder" sceneMemberID="firstResponder"/>

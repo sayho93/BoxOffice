@@ -37,13 +37,14 @@ class RequestHandler{
         }
     }
     
-    class func getMovieDetail(id: String){
+    class func getMovieDetail(id: String, callback: @escaping (() -> Void)){
         let url = Config.MOVIE_URL + "?id=\(id)"
         
         HttpService.getJSON(url){ (data) -> Void in
             do{
                 let apiResponse: MovieDetail = try JSONDecoder().decode(MovieDetail.self, from: data)
                 NotificationCenter.default.post(name: Notification.DidReceiveMovieDetail, object: nil, userInfo: ["data": apiResponse])
+                callback()
             }catch(let err){
                 print(err.localizedDescription)
             }
