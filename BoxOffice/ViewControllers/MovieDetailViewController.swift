@@ -17,6 +17,7 @@ class MovieDetailViewController: UIViewController {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveMovieDetail(_:)), name: Notification.DidReceiveMovieDetail, object: nil)
         RequestHandler.getMovieDetail(id: self.id)
+        self.navigationItem.title = navigationTitle
     }
     
     override func viewWillAppear(_ animated: Bool) {

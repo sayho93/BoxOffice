@@ -38,13 +38,6 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
             DispatchQueue.main.async {
                 cell.thumbImg.image = UIImage(data: thumbData)
                 cell.setNeedsLayout()
-                
-//                if let index: IndexPath = collectionView.indexPath(for: cell){
-//                    if index.row == indexPath.row && index.section == indexPath.section{
-//                        cell.thumbImg.image = UIImage(data: thumbData)
-//                        cell.setNeedsLayout()
-//                    }
-//                }
             }
         }
         return cell
@@ -151,8 +144,7 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
         default:
             titleTxt = "table"
         }
-        
-        self.navigationController?.navigationBar.topItem?.title = titleTxt
+        self.navigationItem.title = titleTxt
     }
     
     private func initCollectionView(){
@@ -202,6 +194,9 @@ class MovieCollectionViewController: UIViewController, UICollectionViewDataSourc
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "movieDetailSegue"{
+            let backItem = UIBarButtonItem()
+            backItem.title = "영화목록"
+            navigationItem.backBarButtonItem = backItem
             if let index = self.collectionView.indexPathsForSelectedItems{
                 guard let idx = index.first?.row else { return }
                 let row = movies[idx]

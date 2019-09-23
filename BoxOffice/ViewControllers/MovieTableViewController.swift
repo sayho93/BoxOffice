@@ -131,7 +131,6 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
     
     private func setNavbarTitle(){
         var titleTxt: String
-        
         switch tabBarVC.sortFlag {
         case 0:
             titleTxt = "예매율순"
@@ -142,7 +141,7 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
         default:
             titleTxt = "table"
         }
-        self.navigationController?.navigationBar.topItem?.title = titleTxt
+        self.navigationItem.title = titleTxt
     }
     
     func initNavigation(){
@@ -184,12 +183,16 @@ class MovieTableViewController: UIViewController, UITableViewDataSource, UITable
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "movieDetailSegue"{
+            let backItem = UIBarButtonItem()
+            backItem.title = "영화목록"
+            navigationItem.backBarButtonItem = backItem
             if let index = self.tableView.indexPathForSelectedRow?.row{
                 let row = movies[index]
                 guard let nextViewController: MovieDetailViewController = segue.destination as? MovieDetailViewController else{
                     return
                 }
                 nextViewController.id = row.id
+                nextViewController.navigationTitle = row.title
             }
         }else{
             fatalError("invalid identifier")
