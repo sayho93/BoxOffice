@@ -17,7 +17,7 @@ class MovieDetailViewController: UIViewController {
     @IBOutlet weak var movieTitle: UILabel!
     @IBOutlet weak var date: UILabel!
     @IBOutlet weak var movieInfo: UILabel!
-    
+        
     @IBOutlet weak var reservationRate: UILabel!
     @IBOutlet weak var rate: UILabel!
     @IBOutlet weak var rateStar: UILabel!
@@ -42,16 +42,52 @@ class MovieDetailViewController: UIViewController {
             guard let thumbData: Data = try? Data(contentsOf: thumbURL) else{return}
             DispatchQueue.main.async {
                 self.imageView.image = UIImage(data: thumbData)
-                self.movieTitle.text = self.movie.title
+                self.movieTitle.attributedText = self.makeAttributedString(movie: self.movie, label: self.movieTitle)
                 self.date.text = self.movie.date + "개봉"
                 self.movieInfo.text = "\(self.movie.genre)/\(self.movie.duration)분"
                 self.reservationRate.text = String(self.movie.reservationRate)
                 self.rate.text = String(self.movie.userRating)
                 self.accumulate.text = String(self.movie.audience)
-                
-                self.movieTitle.attributedText = self.makeAttributedString(movie: self.movie, label: self.movieTitle)
+                self.rateStar.attributedText = self.drawStar(rate: self.movie.userRating, label: self.rateStar)
             }
         }
+    }
+    
+    func drawStar(rate: Double, label: UILabel) -> NSMutableAttributedString{
+        let mutableString = NSMutableAttributedString()
+        
+        let fullStar: UIImage = UIImage(named: "ic_star_large_full")!
+        let halfStar: UIImage = UIImage(named: "ic_star_large_half")!
+        let emptyStar: UIImage = UIImage(named: "ic_star_large")!
+        
+        let fsAttachment = NSTextAttachment()
+        fsAttachment.image = fullStar
+        
+        let hsAttachment = NSTextAttachment()
+        hsAttachment.image = halfStar
+        
+        let esAttachment = NSTextAttachment()
+        esAttachment.image = emptyStar
+        
+        let bounds = CGRect(x: 0, y: (label.font.capHeight - (fsAttachment.image?.size.height)!).rounded() / 2, width: ((fsAttachment.image?.size.width)! / 3), height: ((fsAttachment.image?.size.height)! / 3))
+        fsAttachment.bounds = bounds
+        hsAttachment.bounds = bounds
+        esAttachment.bounds = bounds
+        
+        for i in 1..<6{
+            if Double(i) < rate{
+                mutableString.append(NSAttributedString(attachment: fsAttachment))
+            }else{
+                if rate - Double(i) == 0.5{
+                    mutableString.append(NSAttributedString(attachment: hsAttachment))
+                }else{
+                    mutableString.append(NSAttributedString(attachment: esAttachment))
+                }
+            }
+        }
+        
+        return mutableString
+        
     }
     
     func makeAttributedString(movie: MovieDetail, label: UILabel) -> NSMutableAttributedString{
