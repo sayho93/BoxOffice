@@ -62,10 +62,8 @@ class MovieDetailViewController: UIViewController {
         
         let fsAttachment = NSTextAttachment()
         fsAttachment.image = fullStar
-        
         let hsAttachment = NSTextAttachment()
         hsAttachment.image = halfStar
-        
         let esAttachment = NSTextAttachment()
         esAttachment.image = emptyStar
         
@@ -75,19 +73,18 @@ class MovieDetailViewController: UIViewController {
         esAttachment.bounds = bounds
         
         for i in 1..<6{
-            if Double(i) < rate{
+            if Double(i) * 2 <= rate + 0.2{
                 mutableString.append(NSAttributedString(attachment: fsAttachment))
             }else{
-                if rate - Double(i) == 0.5{
+                let diff = Double(i) * 2 - rate
+                if diff <= 1.4 && diff >= 0.6{
                     mutableString.append(NSAttributedString(attachment: hsAttachment))
                 }else{
                     mutableString.append(NSAttributedString(attachment: esAttachment))
                 }
             }
         }
-        
         return mutableString
-        
     }
     
     func makeAttributedString(movie: MovieDetail, label: UILabel) -> NSMutableAttributedString{
