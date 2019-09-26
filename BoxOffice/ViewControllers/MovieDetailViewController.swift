@@ -13,6 +13,8 @@ class MovieDetailViewController: UIViewController {
     private var movie: MovieDetail!
     var navigationTitle: String!
     
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var movieTitle: UILabel!
     @IBOutlet weak var date: UILabel!
@@ -25,6 +27,7 @@ class MovieDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        spinner.startAnimating()
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveMovieDetail(_:)), name: Notification.DidReceiveMovieDetail, object: nil)
         RequestHandler.getMovieDetail(id: self.id) {
             self.setData()
@@ -49,6 +52,7 @@ class MovieDetailViewController: UIViewController {
                 self.rate.text = String(self.movie.userRating)
                 self.accumulate.text = String(self.movie.audience)
                 self.rateStar.attributedText = self.drawStar(rate: self.movie.userRating, label: self.rateStar)
+                self.spinner.stopAnimating()
             }
         }
     }

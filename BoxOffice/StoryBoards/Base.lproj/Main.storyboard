@@ -336,10 +336,15 @@
                                             <constraint firstItem="Vc3-bp-dRQ" firstAttribute="centerX" secondItem="XMe-g8-FFA" secondAttribute="centerX" id="say-5T-0qH"/>
                                         </constraints>
                                     </view>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="bca-2J-jMi">
+                                        <rect key="frame" x="177.66666666666666" y="310.66666666666669" width="20" height="20"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="bca-2J-jMi" firstAttribute="centerX" secondItem="lgk-e8-fI0" secondAttribute="centerX" id="2gX-Wx-GOI"/>
                                     <constraint firstAttribute="bottom" secondItem="XMe-g8-FFA" secondAttribute="bottom" constant="20" symbolic="YES" id="7lR-TZ-gEa"/>
                                     <constraint firstAttribute="trailing" secondItem="XMe-g8-FFA" secondAttribute="trailing" id="HPX-iy-X0z"/>
+                                    <constraint firstItem="bca-2J-jMi" firstAttribute="centerY" secondItem="lgk-e8-fI0" secondAttribute="centerY" id="U0d-qh-gFK"/>
                                     <constraint firstItem="XMe-g8-FFA" firstAttribute="top" secondItem="lgk-e8-fI0" secondAttribute="top" id="t2W-mF-JQS"/>
                                     <constraint firstItem="XMe-g8-FFA" firstAttribute="leading" secondItem="lgk-e8-fI0" secondAttribute="leading" id="ypd-sw-yoC"/>
                                 </constraints>
@@ -368,6 +373,7 @@
                         <outlet property="rate" destination="CPz-a9-vLc" id="GVt-If-u1I"/>
                         <outlet property="rateStar" destination="6MR-Mf-rFG" id="aTa-Af-jZC"/>
                         <outlet property="reservationRate" destination="Pg4-zB-f8h" id="Voj-go-qMH"/>
+                        <outlet property="spinner" destination="bca-2J-jMi" id="N0w-0T-CKq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ux1-JD-b7y" userLabel="First Responder" sceneMemberID="firstResponder"/>
