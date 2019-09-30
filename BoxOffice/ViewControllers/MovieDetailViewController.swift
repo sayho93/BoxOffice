@@ -14,6 +14,7 @@ class MovieDetailViewController: UIViewController {
     var navigationTitle: String!
     
     @IBOutlet weak var spinner: UIActivityIndicatorView!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var movieTitle: UILabel!
@@ -24,6 +25,8 @@ class MovieDetailViewController: UIViewController {
     @IBOutlet weak var rate: UILabel!
     @IBOutlet weak var rateStar: UILabel!
     @IBOutlet weak var accumulate: UILabel!
+    
+    @IBOutlet weak var synopsis: UITextView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,10 +36,28 @@ class MovieDetailViewController: UIViewController {
             self.setData()
         }
         self.navigationItem.title = navigationTitle
+        
+        scrollView.translatesAutoresizingMaskIntoConstraints  = false
+        for view in scrollView.subviews{
+            view.translatesAutoresizingMaskIntoConstraints = false
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+//        self.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 2, right: 0)
+//        var contentRect = CGRect.zero
+//
+//        for view in scrollView.subviews {
+//           contentRect = contentRect.union(view.frame)
+//        }
+//        scrollView.contentSize = contentRect.size
+//        print(contentRect.size)
+        self.scrollView.isScrollEnabled = true
     }
     
     func setData(){
@@ -52,6 +73,9 @@ class MovieDetailViewController: UIViewController {
                 self.rate.text = String(self.movie.userRating)
                 self.accumulate.text = String(self.movie.audience)
                 self.rateStar.attributedText = self.drawStar(rate: self.movie.userRating, label: self.rateStar)
+                
+                self.synopsis.text = self.movie.synopsis
+                
                 self.spinner.stopAnimating()
             }
         }
