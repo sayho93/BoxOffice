@@ -455,7 +455,7 @@
                                                             <constraint firstAttribute="height" constant="700" id="Wxo-pa-yPz"/>
                                                         </constraints>
                                                         <prototypes>
-                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="113" id="mMr-iq-ZEE" customClass="CommentTableViewCell" customModule="BoxOffice" customModuleProvider="target">
+                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="commentTableCell" rowHeight="113" id="mMr-iq-ZEE" customClass="CommentTableViewCell" customModule="BoxOffice" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="28" width="375" height="113"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mMr-iq-ZEE" id="3QD-6D-n8p">
@@ -523,6 +523,9 @@
                                                                 </connections>
                                                             </tableViewCell>
                                                         </prototypes>
+                                                        <connections>
+                                                            <outlet property="dataSource" destination="ebL-3j-Qxe" id="5Q4-jr-K14"/>
+                                                        </connections>
                                                     </tableView>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>

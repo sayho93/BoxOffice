@@ -51,8 +51,8 @@ class RequestHandler{
         }
     }
     
-    class func getCommentList(callback: @escaping(() -> Void)){
-        let url = Config.COMMENT_LIST_URL
+    class func getCommentList(id: String, callback: @escaping(() -> Void)){
+        let url = Config.COMMENT_LIST_URL + Config.COMMENT_LIST_PARAMETER + id
         HttpService.getJSON(url) { (data) -> Void in
             do{
                 let apiResponse: CommentList = try JSONDecoder().decode(CommentList.self, from: data)

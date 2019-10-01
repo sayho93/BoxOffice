@@ -12,7 +12,8 @@ class MovieDetailViewController: UIViewController, UITableViewDataSource, UITabl
     var id: String!
     private var movie: MovieDetail!
     var navigationTitle: String!
-    private var comments: [Comment]!
+    private var comments: [Comment] = []
+    let cellIdentifier: String = "commentTableCell"
     
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -34,47 +35,46 @@ class MovieDetailViewController: UIViewController, UITableViewDataSource, UITabl
     
     @IBOutlet weak var writeComment: UIButton!
     @IBOutlet weak var commentTableView: UITableView!
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.comments.count
+        return comments.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        guard let cell: CommentTableViewCell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier, for: indexPath) as? CommentTableViewCell else{
+            return UITableViewCell()
+        }
+        
+        let comment: Comment = self.comments[indexPath.row]
+        print(comment)
+        cell.userID.text = comment.writer
+        cell.content.text = comment.contents
+        cell.timestamp.text = String(comment.timestamp)
+        return cell
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         spinner.startAnimating()
+        self.view.bringSubviewToFront(spinner)
+        self.navigationItem.title = navigationTitle
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveMovieDetail(_:)), name: Notification.DidReceiveMovieDetail, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveCommentList(_:)), name: Notification.DidReceiveCommentList, object: nil)
+        
         RequestHandler.getMovieDetail(id: self.id) {
             self.setData()
         }
-        RequestHandler.getCommentList {
-            DispatchQueue.main.async {
-                self.commentTableView.setNeedsLayout()
-            }
+        
+        RequestHandler.getCommentList(id: self.id) {
+//            DispatchQueue.main.async {
+//                self.commentTableView.reloadData()
+//                self.commentTableView.setNeedsLayout()
+//            }
         }
-        self.navigationItem.title = navigationTitle
-        self.view.bringSubviewToFront(spinner)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-//        self.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 2, right: 0)
-//        var contentRect = CGRect.zero
-//
-//        for view in scrollView.subviews {
-//           contentRect = contentRect.union(view.frame)
-//        }
-//        scrollView.contentSize = contentRect.size
-//        print(contentRect.size)
-        self.scrollView.isScrollEnabled = true
     }
     
     func setData(){
@@ -167,5 +167,11 @@ class MovieDetailViewController: UIViewController, UITableViewDataSource, UITabl
     @objc func didReceiveCommentList(_ noti: Notification){
         guard let commentList: [Comment] = noti.userInfo?["data"] as? [Comment] else{return}
         self.comments = commentList
+        
+        DispatchQueue.main.async {
+            let range = NSMakeRange(0, self.commentTableView.numberOfSections)
+            let sections = NSIndexSet(indexesIn: range)
+            self.commentTableView.reloadSections(sections as IndexSet, with: .automatic)
+        }
     }
 }

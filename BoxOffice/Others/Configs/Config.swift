@@ -18,6 +18,7 @@ struct Config{
     static let ORDER_TYPE_PARAMETER: String = "?order_type="
     static let MOVIE_URL: String = API_BASE_URL + "/movie"
     static let COMMENT_LIST_URL: String = API_BASE_URL + "/comments"
+    static let COMMENT_LIST_PARAMETER: String = "?movie_id="
 }
 
 extension Notification {
