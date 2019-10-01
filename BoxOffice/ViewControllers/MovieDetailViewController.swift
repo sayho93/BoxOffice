@@ -27,6 +27,9 @@ class MovieDetailViewController: UIViewController {
     @IBOutlet weak var accumulate: UILabel!
     
     @IBOutlet weak var synopsis: UITextView!
+    
+    @IBOutlet weak var director: UILabel!
+    @IBOutlet weak var actor: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,11 +39,7 @@ class MovieDetailViewController: UIViewController {
             self.setData()
         }
         self.navigationItem.title = navigationTitle
-        
-        scrollView.translatesAutoresizingMaskIntoConstraints  = false
-        for view in scrollView.subviews{
-            view.translatesAutoresizingMaskIntoConstraints = false
-        }
+        self.view.bringSubviewToFront(spinner)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -75,6 +74,9 @@ class MovieDetailViewController: UIViewController {
                 self.rateStar.attributedText = self.drawStar(rate: self.movie.userRating, label: self.rateStar)
                 
                 self.synopsis.text = self.movie.synopsis
+                
+                self.director.text = self.movie.director
+                self.actor.text = self.movie.actor
                 
                 self.spinner.stopAnimating()
             }
