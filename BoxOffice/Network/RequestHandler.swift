@@ -50,4 +50,17 @@ class RequestHandler{
             }
         }
     }
+    
+    class func getCommentList(callback: @escaping(() -> Void)){
+        let url = Config.COMMENT_LIST_URL
+        HttpService.getJSON(url) { (data) -> Void in
+            do{
+                let apiResponse: CommentList = try JSONDecoder().decode(CommentList.self, from: data)
+                NotificationCenter.default.post(name: Notification.DidReceiveCommentList, object: nil, userInfo: ["data": apiResponse.comments])
+                callback()
+            }catch(let err){
+                print(err.localizedDescription)
+            }
+        }
+    }
 }

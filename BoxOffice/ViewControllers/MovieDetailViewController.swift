@@ -8,10 +8,11 @@
 
 import UIKit
 
-class MovieDetailViewController: UIViewController {
+class MovieDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var id: String!
     private var movie: MovieDetail!
     var navigationTitle: String!
+    private var comments: [Comment]!
     
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -30,13 +31,30 @@ class MovieDetailViewController: UIViewController {
     
     @IBOutlet weak var director: UILabel!
     @IBOutlet weak var actor: UILabel!
+    
+    @IBOutlet weak var writeComment: UIButton!
+    @IBOutlet weak var commentTableView: UITableView!
 
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.comments.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         spinner.startAnimating()
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveMovieDetail(_:)), name: Notification.DidReceiveMovieDetail, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveCommentList(_:)), name: Notification.DidReceiveCommentList, object: nil)
         RequestHandler.getMovieDetail(id: self.id) {
             self.setData()
+        }
+        RequestHandler.getCommentList {
+            DispatchQueue.main.async {
+                self.commentTableView.setNeedsLayout()
+            }
         }
         self.navigationItem.title = navigationTitle
         self.view.bringSubviewToFront(spinner)
@@ -144,5 +162,10 @@ class MovieDetailViewController: UIViewController {
     @objc func didReceiveMovieDetail(_ noti: Notification){
         guard let movieInfo: MovieDetail = noti.userInfo?["data"] as? MovieDetail  else{return}
         self.movie = movieInfo
+    }
+    
+    @objc func didReceiveCommentList(_ noti: Notification){
+        guard let commentList: [Comment] = noti.userInfo?["data"] as? [Comment] else{return}
+        self.comments = commentList
     }
 }

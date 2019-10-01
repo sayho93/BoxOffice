@@ -58,11 +58,27 @@ struct MovieDetail: Codable{
     let userRating: Double
     let date: String
     let id: String
-    
     enum CodingKeys: String, CodingKey{
         case reservationGrade = "reservation_grade"
         case reservationRate = "reservation_rate"
         case userRating = "user_rating"
         case audience, actor, duration, director, synopsis, genre, grade, image, title, date, id
+    }
+}
+
+struct CommentList: Codable{
+    let comments: [Comment]
+}
+
+struct Comment: Codable{
+    let rating: Double
+    let timestamp: Double
+    let writer: String
+    let movieId: String
+    let contents: String
+    let id: String
+    enum CodingKeys: String, CodingKey{
+        case movieId = "movie_id"
+        case rating, timestamp, writer, contents, id
     }
 }
