@@ -50,6 +50,8 @@ class MovieDetailViewController: UIViewController, UITableViewDataSource, UITabl
         cell.userID.text = comment.writer
         cell.content.text = comment.contents
         cell.timestamp.text = String(comment.timestamp)
+        cell.rating.attributedText = self.drawStar(rate: comment.rating, label: cell.rating)
+        
         return cell
     }
     
