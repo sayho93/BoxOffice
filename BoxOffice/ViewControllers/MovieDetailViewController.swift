@@ -35,6 +35,7 @@ class MovieDetailViewController: UIViewController, UITableViewDataSource, UITabl
     
     @IBOutlet weak var writeComment: UIButton!
     @IBOutlet weak var commentTableView: UITableView!
+    @IBOutlet var tableViewHeight: NSLayoutConstraint!
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return comments.count
@@ -46,12 +47,31 @@ class MovieDetailViewController: UIViewController, UITableViewDataSource, UITabl
         }
         
         let comment: Comment = self.comments[indexPath.row]
-        print(comment)
         cell.userID.text = comment.writer
         cell.content.text = comment.contents
-        cell.timestamp.text = String(comment.timestamp)
+        let date = Date(timeIntervalSince1970: comment.timestamp)
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
+        dateFormatter.locale = NSLocale.current
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+        let strDate = dateFormatter.string(from: date)
+        cell.timestamp.text = String(strDate)
         cell.rating.attributedText = self.drawStar(rate: comment.rating, label: cell.rating)
         
+        
+        if indexPath.row == comments.count - 1{
+            DispatchQueue.main.async {
+                self.tableViewHeight.constant = self.commentTableView.contentSize.height
+                self.commentTableView.isScrollEnabled = false
+                print(self.tableViewHeight.constant)
+                print(self.commentTableView.isScrollEnabled)
+            }
+        }else{
+            self.tableViewHeight.constant = self.commentTableView.contentSize.height
+            self.commentTableView.isScrollEnabled = false
+            print(self.tableViewHeight.constant)
+            print(self.commentTableView.isScrollEnabled)
+        }
         return cell
     }
     
@@ -68,10 +88,6 @@ class MovieDetailViewController: UIViewController, UITableViewDataSource, UITabl
         }
         
         RequestHandler.getCommentList(id: self.id) {
-//            DispatchQueue.main.async {
-//                self.commentTableView.reloadData()
-//                self.commentTableView.setNeedsLayout()
-//            }
         }
     }
     
