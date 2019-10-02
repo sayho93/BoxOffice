@@ -62,15 +62,7 @@ class MovieDetailViewController: UIViewController, UITableViewDataSource, UITabl
         if indexPath.row == comments.count - 1{
             DispatchQueue.main.async {
                 self.tableViewHeight.constant = self.commentTableView.contentSize.height
-                self.commentTableView.isScrollEnabled = false
-                print(self.tableViewHeight.constant)
-                print(self.commentTableView.isScrollEnabled)
             }
-        }else{
-            self.tableViewHeight.constant = self.commentTableView.contentSize.height
-            self.commentTableView.isScrollEnabled = false
-            print(self.tableViewHeight.constant)
-            print(self.commentTableView.isScrollEnabled)
         }
         return cell
     }
@@ -88,7 +80,10 @@ class MovieDetailViewController: UIViewController, UITableViewDataSource, UITabl
         }
         
         RequestHandler.getCommentList(id: self.id) {
+            
         }
+        
+        self.tableViewHeight.constant = CGFloat(2000)
     }
     
     override func viewWillAppear(_ animated: Bool) {
