@@ -442,9 +442,6 @@
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K4y-Oe-o1o">
                                                                 <rect key="frame" x="296" y="0.0" width="59" height="24"/>
                                                                 <state key="normal" image="btn_compose"/>
-                                                                <connections>
-                                                                    <segue destination="ZWY-5G-h4k" kind="presentation" id="lLd-0r-ZWJ"/>
-                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <constraints>
@@ -458,7 +455,7 @@
                                                             <constraint firstAttribute="height" constant="700" id="Wxo-pa-yPz"/>
                                                         </constraints>
                                                         <prototypes>
-                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="commentTableCell" rowHeight="113" id="mMr-iq-ZEE" customClass="CommentTableViewCell" customModule="BoxOffice" customModuleProvider="target">
+                                                            <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="commentTableCell" rowHeight="113" id="mMr-iq-ZEE" customClass="CommentTableViewCell" customModule="BoxOffice" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="28" width="375" height="113"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mMr-iq-ZEE" id="3QD-6D-n8p">
@@ -491,7 +488,7 @@
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="SZw-wg-OXU">
+                                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="SZw-wg-OXU">
                                                                             <rect key="frame" x="90" y="70.666666666666671" width="275" height="32.333333333333329"/>
                                                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                                             <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
@@ -602,22 +599,24 @@
                         <outlet property="synopsis" destination="Fw5-Rs-hCQ" id="I01-46-u6V"/>
                         <outlet property="tableViewHeight" destination="Wxo-pa-yPz" id="Bzu-eZ-aHi"/>
                         <outlet property="writeComment" destination="K4y-Oe-o1o" id="TzO-Gn-pp3"/>
+                        <segue destination="ZWY-5G-h4k" kind="presentation" identifier="commentViewSegue" id="odq-Zk-7tP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UaL-XB-31A" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2541.5999999999999" y="170.68965517241381"/>
         </scene>
-        <!--View Controller-->
+        <!--Comment Modal View Controller-->
         <scene sceneID="2lh-Om-mI7">
             <objects>
-                <viewController id="ZWY-5G-h4k" sceneMemberID="viewController">
+                <viewController id="ZWY-5G-h4k" customClass="CommentModalViewController" customModule="BoxOffice" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xHb-fQ-hOB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="BrI-Rm-C9d"/>
                     </view>
+                    <navigationItem key="navigationItem" id="lgE-DO-mFZ"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rZJ-Uh-s49" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -790,6 +789,6 @@
         <image name="ic_user_loading" width="36" height="36"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Q0H-Ra-SN4"/>
+        <segue reference="9vp-BE-CDX"/>
     </inferredMetricsTieBreakers>
 </document>

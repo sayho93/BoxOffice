@@ -187,4 +187,14 @@ class MovieDetailViewController: UIViewController, UITableViewDataSource, UITabl
             self.commentTableView.reloadSections(sections as IndexSet, with: .automatic)
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "commentViewSegue"{
+            let modalVC = self.storyboard?.instantiateViewController(identifier: "CommentModalViewController")
+            let navController = UINavigationController(rootViewController: modalVC!)
+            self.navigationController?.present(navController, animated: true, completion: nil)
+        }else{
+            fatalError("invalid identifier")
+        }
+    }
 }
