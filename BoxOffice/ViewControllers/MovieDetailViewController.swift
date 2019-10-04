@@ -188,13 +188,10 @@ class MovieDetailViewController: UIViewController, UITableViewDataSource, UITabl
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "commentViewSegue"{
-            let modalVC = self.storyboard?.instantiateViewController(identifier: "CommentModalViewController")
-            let navController = UINavigationController(rootViewController: modalVC!)
-            self.navigationController?.present(navController, animated: true, completion: nil)
-        }else{
-            fatalError("invalid identifier")
-        }
+    @IBAction func touchUpCommentBtn(_ sender: UIButton) {
+        let modalVC = CommentModalViewController()
+        let tmpNavController: UINavigationController = UINavigationController(rootViewController: modalVC)
+        modalVC.movieID = self.id
+        self.present(tmpNavController, animated: true, completion: nil)
     }
 }
