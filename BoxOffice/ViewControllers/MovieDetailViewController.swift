@@ -195,6 +195,8 @@ class MovieDetailViewController: UIViewController, UITableViewDataSource, UITabl
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "commentViewSegue"{
             SingletonInstance.instance.setInfo("movieID", self.id ?? "")
+            SingletonInstance.instance.setInfo("movieTitle", self.movie.title)
+            SingletonInstance.instance.setInfo("grade", self.movie.grade)
         }else{
             fatalError("invalid identifier")
         }

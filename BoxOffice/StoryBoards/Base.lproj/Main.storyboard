@@ -617,40 +617,89 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dt4-fC-DxC">
-                                <rect key="frame" x="0.0" y="56" width="375" height="300"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dt4-fC-DxC" userLabel="Rating View">
+                                <rect key="frame" x="0.0" y="56" width="375" height="150"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Nu-py-IEt">
-                                        <rect key="frame" x="10" y="10" width="355" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <rect key="frame" x="20" y="10" width="335" height="24"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nrt-ek-9aB" customClass="RatingControl" customModule="BoxOffice" customModuleProvider="target">
+                                        <rect key="frame" x="50" y="44" width="275" height="96"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="fillMode">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="filledImage" value="ic_star_large_full"/>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="ic_star_large"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstItem="6Nu-py-IEt" firstAttribute="leading" secondItem="Dt4-fC-DxC" secondAttribute="leading" constant="10" id="5r5-g2-zEw"/>
-                                    <constraint firstAttribute="height" constant="300" id="6dc-z7-UbK"/>
+                                    <constraint firstItem="6Nu-py-IEt" firstAttribute="leading" secondItem="Dt4-fC-DxC" secondAttribute="leading" constant="20" id="5r5-g2-zEw"/>
                                     <constraint firstItem="6Nu-py-IEt" firstAttribute="top" secondItem="Dt4-fC-DxC" secondAttribute="top" constant="10" id="8eg-wG-3eN"/>
-                                    <constraint firstAttribute="trailing" secondItem="6Nu-py-IEt" secondAttribute="trailing" constant="10" id="uL7-p8-DAa"/>
+                                    <constraint firstItem="Nrt-ek-9aB" firstAttribute="leading" secondItem="Dt4-fC-DxC" secondAttribute="leading" constant="50" id="Mhh-s1-fPS"/>
+                                    <constraint firstAttribute="bottom" secondItem="Nrt-ek-9aB" secondAttribute="bottom" constant="10" id="TdY-4D-01l"/>
+                                    <constraint firstItem="Nrt-ek-9aB" firstAttribute="top" secondItem="6Nu-py-IEt" secondAttribute="bottom" constant="10" id="Wes-ye-flz"/>
+                                    <constraint firstAttribute="height" constant="150" id="gvI-Bs-PX0"/>
+                                    <constraint firstAttribute="trailing" secondItem="Nrt-ek-9aB" secondAttribute="trailing" constant="50" id="hSx-a6-vtb"/>
+                                    <constraint firstAttribute="trailing" secondItem="6Nu-py-IEt" secondAttribute="trailing" constant="20" id="uL7-p8-DAa"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LRq-sY-oL3" userLabel="Content View">
+                                <rect key="frame" x="0.0" y="216" width="375" height="542"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0XC-06-wLh">
+                                        <rect key="frame" x="10" y="10" width="355" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="XDF-oQ-eWe">
+                                        <rect key="frame" x="10" y="54" width="355" height="478"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="0XC-06-wLh" firstAttribute="leading" secondItem="LRq-sY-oL3" secondAttribute="leading" constant="10" id="8YA-cU-3PV"/>
+                                    <constraint firstAttribute="bottom" secondItem="XDF-oQ-eWe" secondAttribute="bottom" constant="10" id="DYH-QO-oEj"/>
+                                    <constraint firstAttribute="trailing" secondItem="XDF-oQ-eWe" secondAttribute="trailing" constant="10" id="SGs-nG-d8X"/>
+                                    <constraint firstAttribute="trailing" secondItem="0XC-06-wLh" secondAttribute="trailing" constant="10" id="Ywm-Na-HIc"/>
+                                    <constraint firstItem="XDF-oQ-eWe" firstAttribute="top" secondItem="0XC-06-wLh" secondAttribute="bottom" constant="10" id="gOh-Qe-GhF"/>
+                                    <constraint firstItem="0XC-06-wLh" firstAttribute="top" secondItem="LRq-sY-oL3" secondAttribute="top" constant="10" id="qkl-TF-XV5"/>
+                                    <constraint firstItem="XDF-oQ-eWe" firstAttribute="leading" secondItem="LRq-sY-oL3" secondAttribute="leading" constant="10" id="u1v-SC-3Uk"/>
                                 </constraints>
                             </view>
                         </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="LRq-sY-oL3" firstAttribute="top" secondItem="Dt4-fC-DxC" secondAttribute="bottom" constant="10" id="2By-dw-Dzo"/>
                             <constraint firstItem="Dt4-fC-DxC" firstAttribute="leading" secondItem="BrI-Rm-C9d" secondAttribute="leading" id="4fg-RS-CtR"/>
                             <constraint firstItem="Dt4-fC-DxC" firstAttribute="top" secondItem="BrI-Rm-C9d" secondAttribute="top" id="S4y-Vx-uP0"/>
+                            <constraint firstItem="BrI-Rm-C9d" firstAttribute="trailing" secondItem="LRq-sY-oL3" secondAttribute="trailing" id="W6T-CF-qMi"/>
                             <constraint firstItem="BrI-Rm-C9d" firstAttribute="trailing" secondItem="Dt4-fC-DxC" secondAttribute="trailing" id="ZUE-pF-KOs"/>
+                            <constraint firstItem="LRq-sY-oL3" firstAttribute="leading" secondItem="BrI-Rm-C9d" secondAttribute="leading" id="gPb-1v-2Qo"/>
+                            <constraint firstAttribute="bottom" secondItem="LRq-sY-oL3" secondAttribute="bottom" id="i0M-2e-JYP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="BrI-Rm-C9d"/>
                     </view>
                     <navigationItem key="navigationItem" id="lgE-DO-mFZ"/>
                     <connections>
-                        <outlet property="test" destination="6Nu-py-IEt" id="N4F-Bl-YCC"/>
+                        <outlet property="comment" destination="XDF-oQ-eWe" id="sLW-G1-QPl"/>
+                        <outlet property="movieTitle" destination="6Nu-py-IEt" id="N4F-Bl-YCC"/>
+                        <outlet property="userName" destination="0XC-06-wLh" id="uII-3v-O6y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rZJ-Uh-s49" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4070" y="171"/>
+            <point key="canvasLocation" x="4069.5999999999999" y="170.68965517241381"/>
         </scene>
         <!--Collection-->
         <scene sceneID="agK-Bi-3gZ">
@@ -833,6 +882,8 @@
         <image name="btn_compose" width="23" height="23"/>
         <image name="ic_collection" width="25" height="25"/>
         <image name="ic_settings" width="24" height="24"/>
+        <image name="ic_star_large" width="48" height="48"/>
+        <image name="ic_star_large_full" width="48" height="48"/>
         <image name="ic_table" width="24" height="24"/>
         <image name="ic_user_loading" width="36" height="36"/>
     </resources>

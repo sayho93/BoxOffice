@@ -23,6 +23,7 @@
 		119D95CB2327815A00073B42 /* MovieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119D95CA2327815A00073B42 /* MovieDetailViewController.swift */; };
 		119D95CD233074DD00073B42 /* MovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119D95CC233074DD00073B42 /* MovieCollectionViewCell.swift */; };
 		119D95CF2330B69300073B42 /* MovieTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119D95CE2330B69300073B42 /* MovieTabController.swift */; };
+		11DE4AC123470A3300296340 /* RatingControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DE4AC023470A3300296340 /* RatingControl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		119D95CA2327815A00073B42 /* MovieDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewController.swift; sourceTree = "<group>"; };
 		119D95CC233074DD00073B42 /* MovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewCell.swift; sourceTree = "<group>"; };
 		119D95CE2330B69300073B42 /* MovieTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTabController.swift; sourceTree = "<group>"; };
+		11DE4AC023470A3300296340 /* RatingControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RatingControl.swift; path = BoxOffice/Views/RatingControl.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		114A44D6234702840059862F /* Library */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
 		1197B6BF2320E44F00A29537 = {
 			isa = PBXGroup;
 			children = (
@@ -101,6 +110,7 @@
 				119D95C82326162900073B42 /* MovieTableViewCell.swift */,
 				119D95CC233074DD00073B42 /* MovieCollectionViewCell.swift */,
 				11010C56234320F900B35174 /* CommentTableViewCell.swift */,
+				11DE4AC023470A3300296340 /* RatingControl.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -137,6 +147,7 @@
 		1197B6E22320E4BC00A29537 /* Others */ = {
 			isa = PBXGroup;
 			children = (
+				114A44D6234702840059862F /* Library */,
 				119D95BD2321FA1F00073B42 /* Configs */,
 				1197B6CB2320E44F00A29537 /* AppDelegate.swift */,
 				1197B6D22320E45300A29537 /* Assets.xcassets */,
@@ -224,6 +235,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11DE4AC123470A3300296340 /* RatingControl.swift in Sources */,
 				1197B6CE2320E44F00A29537 /* MovieTableViewController.swift in Sources */,
 				119D95CF2330B69300073B42 /* MovieTabController.swift in Sources */,
 				119D95C92326162900073B42 /* MovieTableViewCell.swift in Sources */,
