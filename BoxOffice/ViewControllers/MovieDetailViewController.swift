@@ -189,9 +189,14 @@ class MovieDetailViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     @IBAction func touchUpCommentBtn(_ sender: UIButton) {
-        let modalVC = CommentModalViewController()
-        let tmpNavController: UINavigationController = UINavigationController(rootViewController: modalVC)
-        modalVC.movieID = self.id
-        self.present(tmpNavController, animated: true, completion: nil)
+        performSegue(withIdentifier: "commentViewSegue", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "commentViewSegue"{
+            SingletonInstance.instance.setInfo("movieID", self.id ?? "")
+        }else{
+            fatalError("invalid identifier")
+        }
     }
 }

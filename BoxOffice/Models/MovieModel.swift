@@ -82,3 +82,20 @@ struct Comment: Codable{
         case rating, timestamp, writer, contents, id
     }
 }
+
+class SingletonInstance{
+    static let instance = SingletonInstance()
+    
+    private var info = [String: Any]()
+    
+    func setInfo(_ key: String, _ value: Any){
+        info[key] = value
+    }
+    func getInfo(_ key: String) -> Any?{
+        return info[key]
+    }
+    
+    func reInit(){
+        info.removeAll()
+    }
+}

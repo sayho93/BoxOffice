@@ -10,16 +10,16 @@ import UIKit
 
 class CommentModalViewController: UIViewController {
     var movieID: String!
+    @IBOutlet weak var test: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.movieID = SingletonInstance.instance.getInfo("movieID") as? String
         initNavigation()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print(self.movieID!)
-        print(":???")
     }
     
     private func initNavigation(){
