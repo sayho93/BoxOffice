@@ -15,11 +15,21 @@ class CommentModalViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var comment: UITextView!
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        setupTextView()
+        if comment.textColor == .placeholderText {
+            comment.text = nil
+            if traitCollection.userInterfaceStyle == .light{
+                comment.textColor = .darkText
+            }else if traitCollection.userInterfaceStyle == .dark{
+                comment.textColor = .lightText
+            }
+        }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        setupTextView()
+        if comment.text.isEmpty {
+            comment.text = "한줄평을 작성해주세요"
+            comment.textColor = UIColor.placeholderText
+        }
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -27,22 +37,6 @@ class CommentModalViewController: UIViewController, UITextViewDelegate {
             comment.resignFirstResponder()
         }
         return true
-    }
-    
-    func setupTextView(){
-        if comment.textColor == .placeholderText {
-            print("textView textColor is placeholderText")
-            comment.text = nil
-            if traitCollection.userInterfaceStyle == .light{
-                comment.textColor = .darkText
-            }else if traitCollection.userInterfaceStyle == .dark{
-                comment.textColor = .lightText
-            }
-        }else if comment.text.isEmpty {
-            print("textView is empty")
-            comment.text = "한줄평을 작성해주세요"
-            comment.textColor = UIColor.placeholderText
-        }
     }
 
     override func viewDidLoad() {
@@ -53,14 +47,15 @@ class CommentModalViewController: UIViewController, UITextViewDelegate {
         let grade = SingletonInstance.instance.getInfo("grade")
         self.movieTitle.attributedText = self.makeAttributedString(title: title as! String, grade: grade as! Int, target: self.movieTitle)
         comment.delegate = self
-        setupTextView()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        if previousTraitCollection?.userInterfaceStyle == .dark{
-            comment.textColor = .darkText
-        }else{
-            comment.textColor = .lightText
+        if comment.textColor != UIColor.placeholderText{
+            if previousTraitCollection?.userInterfaceStyle == .dark{
+                    comment.textColor = .darkText
+            }else{
+                comment.textColor = .lightText
+            }
         }
     }
     
