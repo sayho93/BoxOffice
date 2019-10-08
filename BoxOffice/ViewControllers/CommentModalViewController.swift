@@ -15,13 +15,11 @@ class CommentModalViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var comment: UITextView!
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        textViewSetupView()
+        setupTextView()
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        if comment.text == ""{
-            textViewSetupView()
-        }
+        setupTextView()
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -31,13 +29,19 @@ class CommentModalViewController: UIViewController, UITextViewDelegate {
         return true
     }
     
-    func textViewSetupView(){
-        if comment.text == "한줄평을 작성해주세요"{
-            comment.text = ""
-            comment.textColor = .systemBackground
-        }else if comment.text == ""{
+    func setupTextView(){
+        if comment.textColor == .placeholderText {
+            print("textView textColor is placeholderText")
+            comment.text = nil
+            if traitCollection.userInterfaceStyle == .light{
+                comment.textColor = .darkText
+            }else if traitCollection.userInterfaceStyle == .dark{
+                comment.textColor = .lightText
+            }
+        }else if comment.text.isEmpty {
+            print("textView is empty")
             comment.text = "한줄평을 작성해주세요"
-            comment.textColor = .placeholderText
+            comment.textColor = UIColor.placeholderText
         }
     }
 
@@ -49,11 +53,15 @@ class CommentModalViewController: UIViewController, UITextViewDelegate {
         let grade = SingletonInstance.instance.getInfo("grade")
         self.movieTitle.attributedText = self.makeAttributedString(title: title as! String, grade: grade as! Int, target: self.movieTitle)
         comment.delegate = self
-//        textViewSetupView()
+        setupTextView()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        if previousTraitCollection?.userInterfaceStyle == .dark{
+            comment.textColor = .darkText
+        }else{
+            comment.textColor = .lightText
+        }
     }
     
     private func initNavigation(){

@@ -71,7 +71,7 @@ class RatingControl: UIStackView {
         let bundle = Bundle(for: type(of: self))
         let filledStar = UIImage(named: "ic_star_large_full", in: bundle, compatibleWith: self.traitCollection)
         let emptyStar = UIImage(named:"ic_star_large", in: bundle, compatibleWith: self.traitCollection)
-        let halfStar = UIImage(named:"ic_star_large_half", in: bundle, compatibleWith: self.traitCollection)
+//        let halfStar = UIImage(named:"ic_star_large_half", in: bundle, compatibleWith: self.traitCollection)
         
         for _ in 0..<starCount {
             // Create the button

@@ -626,16 +626,9 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nrt-ek-9aB" customClass="RatingControl" customModule="BoxOffice" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nrt-ek-9aB">
                                         <rect key="frame" x="50" y="44" width="275" height="96"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="fillMode">
-                                                <integer key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="image" keyPath="filledImage" value="ic_star_large_full"/>
-                                            <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="ic_star_large"/>
-                                        </userDefinedRuntimeAttributes>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -658,7 +651,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="XDF-oQ-eWe">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="UDm-ZO-6za">
                                         <rect key="frame" x="10" y="54" width="355" height="478"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -668,13 +661,13 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="UDm-ZO-6za" secondAttribute="trailing" constant="10" id="2Dl-0C-1LW"/>
                                     <constraint firstItem="0XC-06-wLh" firstAttribute="leading" secondItem="LRq-sY-oL3" secondAttribute="leading" constant="10" id="8YA-cU-3PV"/>
-                                    <constraint firstAttribute="bottom" secondItem="XDF-oQ-eWe" secondAttribute="bottom" constant="10" id="DYH-QO-oEj"/>
-                                    <constraint firstAttribute="trailing" secondItem="XDF-oQ-eWe" secondAttribute="trailing" constant="10" id="SGs-nG-d8X"/>
+                                    <constraint firstItem="UDm-ZO-6za" firstAttribute="top" secondItem="0XC-06-wLh" secondAttribute="bottom" constant="10" id="MLB-Gd-lfi"/>
                                     <constraint firstAttribute="trailing" secondItem="0XC-06-wLh" secondAttribute="trailing" constant="10" id="Ywm-Na-HIc"/>
-                                    <constraint firstItem="XDF-oQ-eWe" firstAttribute="top" secondItem="0XC-06-wLh" secondAttribute="bottom" constant="10" id="gOh-Qe-GhF"/>
+                                    <constraint firstItem="UDm-ZO-6za" firstAttribute="leading" secondItem="LRq-sY-oL3" secondAttribute="leading" constant="10" id="dp7-ZQ-hIS"/>
+                                    <constraint firstAttribute="bottom" secondItem="UDm-ZO-6za" secondAttribute="bottom" constant="10" id="hVE-OU-RJi"/>
                                     <constraint firstItem="0XC-06-wLh" firstAttribute="top" secondItem="LRq-sY-oL3" secondAttribute="top" constant="10" id="qkl-TF-XV5"/>
-                                    <constraint firstItem="XDF-oQ-eWe" firstAttribute="leading" secondItem="LRq-sY-oL3" secondAttribute="leading" constant="10" id="u1v-SC-3Uk"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -692,7 +685,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="lgE-DO-mFZ"/>
                     <connections>
-                        <outlet property="comment" destination="XDF-oQ-eWe" id="sLW-G1-QPl"/>
+                        <outlet property="comment" destination="UDm-ZO-6za" id="Tl9-4n-ETz"/>
                         <outlet property="movieTitle" destination="6Nu-py-IEt" id="N4F-Bl-YCC"/>
                         <outlet property="userName" destination="0XC-06-wLh" id="uII-3v-O6y"/>
                     </connections>
@@ -882,12 +875,10 @@
         <image name="btn_compose" width="23" height="23"/>
         <image name="ic_collection" width="25" height="25"/>
         <image name="ic_settings" width="24" height="24"/>
-        <image name="ic_star_large" width="48" height="48"/>
-        <image name="ic_star_large_full" width="48" height="48"/>
         <image name="ic_table" width="24" height="24"/>
         <image name="ic_user_loading" width="36" height="36"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="9vp-BE-CDX"/>
+        <segue reference="Q0H-Ra-SN4"/>
     </inferredMetricsTieBreakers>
 </document>
