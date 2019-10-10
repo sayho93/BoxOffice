@@ -64,12 +64,19 @@ class RequestHandler{
         }
     }
     
-    class func saveComment(userName: String, comment: String, rating: Int, callback: @escaping((Int) -> Void)){
+    class func saveComment(movieID: String, userName: String, comment: String, rating: Int, callback: @escaping((Int) -> Void)){
+        let url = Config.COMMENT_WRITE_URL
+        var params = [String: String]()
+        params["rating"] = String(rating)
+        params["writer"] = userName
+        params["movie_id"] = movieID
+        params["contents"] = comment
+        let requestParam = HttpService.makePostParam(params: params)
         
-        print(userName)
-        print(comment)
-        print(rating)
-        
+        print(requestParam)
+//        HttpService.post(url, requestParam) { (data) in
+//            print(data)
+//        }
         callback(1)
     }
 }

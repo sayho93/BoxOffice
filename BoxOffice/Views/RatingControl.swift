@@ -53,8 +53,6 @@ import UIKit
             // Otherwise set the rating to the selected star
             rating = selectedRating
         }
-        
-        print(selectedRating)
     }
     
     

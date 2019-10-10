@@ -104,7 +104,7 @@ class CommentModalViewController: UIViewController, UITextViewDelegate {
     
     @objc func addComment(){
         let rating = self.ratingControl.rating
-        RequestHandler.saveComment(userName: self.userName.text!, comment: self.comment.text, rating: rating) { returnCode in
+        RequestHandler.saveComment(movieID: self.movieID,userName: self.userName.text!, comment: self.comment.text, rating: rating) { returnCode in
             if returnCode == 1{
                 print("succ")
             }else{

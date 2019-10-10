@@ -19,6 +19,7 @@ struct Config{
     static let MOVIE_URL: String = API_BASE_URL + "/movie"
     static let COMMENT_LIST_URL: String = API_BASE_URL + "/comments"
     static let COMMENT_LIST_PARAMETER: String = "?movie_id="
+    static let COMMENT_WRITE_URL: String = API_BASE_URL + "/comment"
 }
 
 extension Notification {

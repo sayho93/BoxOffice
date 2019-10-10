@@ -30,14 +30,13 @@ class HttpService {
         task.resume()
     }
     
-    class func post(_ url: String, callback: @escaping(Data) -> Void){
+    class func post(_ url: String, _ params: String, callback: @escaping(Data) -> Void){
         guard let nsUrl = URL(string: url) else{return}
         var request = URLRequest(url: nsUrl)
         request.httpMethod = "POST"
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         let body = "maintext=히브리서&jang=11&jeol=1&jeol2=10".data(using:String.Encoding.utf8, allowLossyConversion: false)
         request.httpBody = body
-        
         
         let session = URLSession.shared
         
@@ -56,5 +55,16 @@ class HttpService {
             session.invalidateAndCancel()
         }
         task.resume()
+    }
+    
+    class func makePostParam(params: [String: String]) -> String{
+        var resultString = String()
+        for (index, param) in params.enumerated(){
+            resultString += "\(param.key)=\(param.value)"
+            if index + 1 < params.count{
+                resultString += "&"
+            }
+        }
+        return resultString
     }
 }
