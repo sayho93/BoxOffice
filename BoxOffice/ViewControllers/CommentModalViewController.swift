@@ -13,6 +13,7 @@ class CommentModalViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var movieTitle: UILabel!
     @IBOutlet weak var userName: UITextField!
     @IBOutlet weak var comment: UITextView!
+    @IBOutlet weak var ratingControl: RatingControl!
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         if comment.textColor == .placeholderText {
@@ -102,7 +103,13 @@ class CommentModalViewController: UIViewController, UITextViewDelegate {
     }
     
     @objc func addComment(){
-        
+        let rating = self.ratingControl.rating
+        RequestHandler.saveComment(userName: self.userName.text!, comment: self.comment.text, rating: rating) { returnCode in
+            if returnCode == 1{
+                print("succ")
+            }else{
+                print("err")
+            }
+        }
     }
-
 }

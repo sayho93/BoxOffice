@@ -15,7 +15,7 @@ class RequestHandler{
     class func getData(type: Int, callback: @escaping ((String) -> Void)){
         let url = Config.MOVIE_LIST_URL + Config.ORDER_TYPE_PARAMETER + String(type)
 
-        HttpService.getJSON(url){ (data) -> Void in
+        HttpService.get(url){ (data) -> Void in
             do{
                 let apiResponse: MovieList = try! JSONDecoder().decode(MovieList.self, from: data)
                 NotificationCenter.default.post(name: Notification.DidReceiveMovieList, object: nil, userInfo: ["data": apiResponse.movies])
@@ -26,7 +26,7 @@ class RequestHandler{
     
     class func getMovieList(type: Int = 0, callback: @escaping (() -> Void)){
         let url = Config.MOVIE_LIST_URL + Config.ORDER_TYPE_PARAMETER + String(type)
-        HttpService.getJSON(url){ (data) -> Void in
+        HttpService.get(url){ (data) -> Void in
             do{
                 let apiResponse: MovieList = try JSONDecoder().decode(MovieList.self, from: data)
                 NotificationCenter.default.post(name: Notification.DidReceiveMovieList, object: nil, userInfo: ["data": apiResponse.movies])
@@ -40,7 +40,7 @@ class RequestHandler{
     class func getMovieDetail(id: String, callback: @escaping (() -> Void)){
         let url = Config.MOVIE_URL + "?id=\(id)"
         
-        HttpService.getJSON(url){ (data) -> Void in
+        HttpService.get(url){ (data) -> Void in
             do{
                 let apiResponse: MovieDetail = try JSONDecoder().decode(MovieDetail.self, from: data)
                 NotificationCenter.default.post(name: Notification.DidReceiveMovieDetail, object: nil, userInfo: ["data": apiResponse])
@@ -53,7 +53,7 @@ class RequestHandler{
     
     class func getCommentList(id: String, callback: @escaping(() -> Void)){
         let url = Config.COMMENT_LIST_URL + Config.COMMENT_LIST_PARAMETER + id
-        HttpService.getJSON(url) { (data) -> Void in
+        HttpService.get(url) { (data) -> Void in
             do{
                 let apiResponse: CommentList = try JSONDecoder().decode(CommentList.self, from: data)
                 NotificationCenter.default.post(name: Notification.DidReceiveCommentList, object: nil, userInfo: ["data": apiResponse.comments])
@@ -62,5 +62,14 @@ class RequestHandler{
                 print(err.localizedDescription)
             }
         }
+    }
+    
+    class func saveComment(userName: String, comment: String, rating: Int, callback: @escaping((Int) -> Void)){
+        
+        print(userName)
+        print(comment)
+        print(rating)
+        
+        callback(1)
     }
 }
