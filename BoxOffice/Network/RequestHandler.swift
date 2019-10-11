@@ -66,17 +66,19 @@ class RequestHandler{
     
     class func saveComment(movieID: String, userName: String, comment: String, rating: Int, callback: @escaping((Int) -> Void)){
         let url = Config.COMMENT_WRITE_URL
-        var params = [String: String]()
-        params["rating"] = String(rating)
+        var params = [String: Any]()
+        params["rating"] = Double(rating)
         params["writer"] = userName
         params["movie_id"] = movieID
         params["contents"] = comment
         let requestParam = HttpService.makePostParam(params: params)
         
-        print(requestParam)
-//        HttpService.post(url, requestParam) { (data) in
-//            print(data)
-//        }
-        callback(1)
+        HttpService.post(url, requestParam) { (response, data) in
+            if response.statusCode == 200{
+                callback(1)
+            }else{
+                callback(-1)
+            }
+        }
     }
 }

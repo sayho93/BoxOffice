@@ -34,9 +34,9 @@ class CommentModalViewController: UIViewController, UITextViewDelegate {
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if text == "\n"{
-            comment.resignFirstResponder()
-        }
+//        if text == "\n"{
+//            comment.resignFirstResponder()
+//        }
         return true
     }
 
@@ -104,9 +104,19 @@ class CommentModalViewController: UIViewController, UITextViewDelegate {
     
     @objc func addComment(){
         let rating = self.ratingControl.rating
-        RequestHandler.saveComment(movieID: self.movieID,userName: self.userName.text!, comment: self.comment.text, rating: rating) { returnCode in
+        RequestHandler.saveComment(movieID: self.movieID,userName: self.userName.text!, comment: self.comment.text, rating: rating * 2) { returnCode in
             if returnCode == 1{
-                print("succ")
+                DispatchQueue.main.async {
+                    self.dismiss(animated: true) {
+                        print("completion")
+                        if let presenter = self.presentingViewController as? MovieDetailViewController{
+                            presenter.commentTableView.reloadData()
+//                            let range = NSMakeRange(0, presenter.commentTableView.numberOfSections)
+//                            let sections = NSIndexSet(indexesIn: range)
+//                            presenter.commentTableView.reloadSections(sections as IndexSet, with: .automatic)
+                        }
+                    }
+                }
             }else{
                 print("err")
             }

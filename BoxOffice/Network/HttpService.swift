@@ -18,11 +18,6 @@ class HttpService {
                 print("http error")
             }
             if data != nil{
-//                guard let tmpData = data else{return}
-//                guard let jsonData = try? JSONSerialization.jsonObject(with: tmpData, options: []) as? [String: Any] else{
-//                    return
-//                }
-//                callback(jsonData)
                 callback(data ?? Data())
             }
             session.invalidateAndCancel()
@@ -30,41 +25,48 @@ class HttpService {
         task.resume()
     }
     
-    class func post(_ url: String, _ params: String, callback: @escaping(Data) -> Void){
+    class func post(_ url: String, _ params: Data, callback: @escaping(HTTPURLResponse, Data) -> Void){
         guard let nsUrl = URL(string: url) else{return}
         var request = URLRequest(url: nsUrl)
         request.httpMethod = "POST"
-        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        let body = "maintext=히브리서&jang=11&jeol=1&jeol2=10".data(using:String.Encoding.utf8, allowLossyConversion: false)
-        request.httpBody = body
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.httpBody = params
         
         let session = URLSession.shared
-        
         let task = session.dataTask(with: request) { (data, response, error) in
             if error != nil{
                 print("http error")
             }
-            
-            if let res = response{
-                print(res)
-            }
-            
-            if let data = data {
-                callback(data)
+            if let res = response as? HTTPURLResponse{
+                if let retData = data{
+                    callback(res, retData)
+                }
             }
             session.invalidateAndCancel()
         }
         task.resume()
     }
     
-    class func makePostParam(params: [String: String]) -> String{
-        var resultString = String()
-        for (index, param) in params.enumerated(){
-            resultString += "\(param.key)=\(param.value)"
-            if index + 1 < params.count{
-                resultString += "&"
-            }
+    class func makePostParam(params: [String: Any]) -> Data{
+        do{
+            let data = try JSONSerialization.data(withJSONObject: params, options: [])
+            return data
+        }catch(let err){
+            print(err.localizedDescription)
         }
-        return resultString
+        return Data()
+    }
+    
+    class func parseJSONFromData(_ jsonData: Data?) -> [String : Any]?{
+      if let data = jsonData {
+        do {
+          let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as? [String : AnyObject]
+          return jsonDictionary
+        } catch let error as NSError {
+          print("error processing json data: \(error.localizedDescription)")
+        }
+      }
+      return nil
     }
 }
