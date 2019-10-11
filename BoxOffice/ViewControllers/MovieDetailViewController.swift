@@ -9,6 +9,13 @@
 import UIKit
 
 class MovieDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    func refreshTable() {
+        print("MovieDetailViewController refreshTable()")
+        RequestHandler.getCommentList(id: self.id) {
+            print("callback?")
+        }
+    }
+    
     var id: String!
     private var movie: MovieDetail!
     var navigationTitle: String!

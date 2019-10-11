@@ -109,11 +109,9 @@ class CommentModalViewController: UIViewController, UITextViewDelegate {
                 DispatchQueue.main.async {
                     self.dismiss(animated: true) {
                         print("completion")
-                        if let presenter = self.presentingViewController as? MovieDetailViewController{
-                            presenter.commentTableView.reloadData()
-//                            let range = NSMakeRange(0, presenter.commentTableView.numberOfSections)
-//                            let sections = NSIndexSet(indexesIn: range)
-//                            presenter.commentTableView.reloadSections(sections as IndexSet, with: .automatic)
+                        if let presenter = self.navigationController as? PresenterNavigationController{
+                            print("??")
+                            presenter.initRefresh()
                         }
                     }
                 }

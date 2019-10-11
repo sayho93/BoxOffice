@@ -124,7 +124,7 @@
         <!--Title-->
         <scene sceneID="k9K-Lq-nQw">
             <objects>
-                <viewController id="ebL-3j-Qxe" customClass="MovieDetailViewController" customModule="BoxOffice" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MovieDetailVC" id="ebL-3j-Qxe" customClass="MovieDetailViewController" customModule="BoxOffice" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="y6c-ed-KBD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="1500"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -613,7 +613,7 @@
         <!--Comment Modal View Controller-->
         <scene sceneID="2lh-Om-mI7">
             <objects>
-                <viewController id="ZWY-5G-h4k" customClass="CommentModalViewController" customModule="BoxOffice" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CommentModalVC" id="ZWY-5G-h4k" customClass="CommentModalViewController" customModule="BoxOffice" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xHb-fQ-hOB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -687,7 +687,7 @@
                     <connections>
                         <outlet property="comment" destination="UDm-ZO-6za" id="Tl9-4n-ETz"/>
                         <outlet property="movieTitle" destination="6Nu-py-IEt" id="N4F-Bl-YCC"/>
-                        <outlet property="ratingControl" destination="Nrt-ek-9aB" id="5os-Gr-y5t"/>
+                        <outlet property="ratingControl" destination="Nrt-ek-9aB" id="1OF-PN-4wL"/>
                         <outlet property="userName" destination="0XC-06-wLh" id="uII-3v-O6y"/>
                     </connections>
                 </viewController>
@@ -853,10 +853,10 @@
             </objects>
             <point key="canvasLocation" x="982" y="522"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Presenter Navigation Controller-->
         <scene sceneID="4NE-iA-MAA">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="sj8-Uh-2hc" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="sj8-Uh-2hc" customClass="PresenterNavigationController" customModule="BoxOffice" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="3Cr-Xx-ZRm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
