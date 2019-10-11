@@ -655,7 +655,7 @@
                                         <rect key="frame" x="10" y="54" width="355" height="478"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <color key="textColor" systemColor="placeholderTextColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                 </subviews>
@@ -853,10 +853,10 @@
             </objects>
             <point key="canvasLocation" x="982" y="522"/>
         </scene>
-        <!--Presenter Navigation Controller-->
+        <!--Navigation Controller-->
         <scene sceneID="4NE-iA-MAA">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="sj8-Uh-2hc" customClass="PresenterNavigationController" customModule="BoxOffice" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="sj8-Uh-2hc" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="3Cr-Xx-ZRm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>

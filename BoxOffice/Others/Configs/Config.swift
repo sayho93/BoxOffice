@@ -26,4 +26,5 @@ extension Notification {
     static let DidReceiveMovieList = Notification.Name("DidReceiveMovieList")
     static let DidReceiveMovieDetail = Notification.Name("DidReceiveMovieDetail")
     static let DidReceiveCommentList = Notification.Name("DidReceiveCommentList")
+    static let DidReceiveCommentRefresh = Notification.Name("DidReceiveCommentRefresh")
 }

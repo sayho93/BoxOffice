@@ -44,9 +44,15 @@ class CommentModalViewController: UIViewController, UITextViewDelegate {
         super.viewDidLoad()
         self.movieID = SingletonInstance.instance.getInfo("movieID") as? String
         initNavigation()
+        self.comment.layer.borderColor = UIColor.red.cgColor
+        self.comment.layer.borderWidth = 0.3
+        self.comment.layer.cornerRadius = 10
         let title = SingletonInstance.instance.getInfo("movieTitle")
         let grade = SingletonInstance.instance.getInfo("grade")
         self.movieTitle.attributedText = self.makeAttributedString(title: title as! String, grade: grade as! Int, target: self.movieTitle)
+        if let tmpUserName = SingletonInstance.instance.getInfo("tmpUserName") as? String{
+            self.userName.text = tmpUserName
+        }
         comment.delegate = self
     }
     
@@ -98,7 +104,6 @@ class CommentModalViewController: UIViewController, UITextViewDelegate {
     }
     
     @objc func dismissModal(){
-        SingletonInstance.instance.reInit()
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -107,12 +112,9 @@ class CommentModalViewController: UIViewController, UITextViewDelegate {
         RequestHandler.saveComment(movieID: self.movieID,userName: self.userName.text!, comment: self.comment.text, rating: rating * 2) { returnCode in
             if returnCode == 1{
                 DispatchQueue.main.async {
+                    SingletonInstance.instance.setInfo("tmpUserName", self.userName.text!)
                     self.dismiss(animated: true) {
-                        print("completion")
-                        if let presenter = self.navigationController as? PresenterNavigationController{
-                            print("??")
-                            presenter.initRefresh()
-                        }
+                        NotificationCenter.default.post(name: Notification.DidReceiveCommentRefresh, object: nil)
                     }
                 }
             }else{

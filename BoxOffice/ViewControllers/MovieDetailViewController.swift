@@ -9,13 +9,6 @@
 import UIKit
 
 class MovieDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    func refreshTable() {
-        print("MovieDetailViewController refreshTable()")
-        RequestHandler.getCommentList(id: self.id) {
-            print("callback?")
-        }
-    }
-    
     var id: String!
     private var movie: MovieDetail!
     var navigationTitle: String!
@@ -65,7 +58,6 @@ class MovieDetailViewController: UIViewController, UITableViewDataSource, UITabl
         cell.timestamp.text = String(strDate)
         cell.rating.attributedText = self.drawStar(rate: comment.rating, label: cell.rating)
         
-        
         if indexPath.row == comments.count - 1{
             DispatchQueue.main.async {
                 self.tableViewHeight.constant = self.commentTableView.contentSize.height
@@ -81,15 +73,12 @@ class MovieDetailViewController: UIViewController, UITableViewDataSource, UITabl
         self.navigationItem.title = navigationTitle
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveMovieDetail(_:)), name: Notification.DidReceiveMovieDetail, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveCommentList(_:)), name: Notification.DidReceiveCommentList, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveCommentRefresh(_:)), name: Notification.DidReceiveCommentRefresh, object: nil)
         
         RequestHandler.getMovieDetail(id: self.id) {
             self.setData()
         }
-        
-        RequestHandler.getCommentList(id: self.id) {
-            
-        }
-        
+        RequestHandler.getCommentList(id: self.id) {}
         self.tableViewHeight.constant = CGFloat(2000)
     }
     
@@ -193,6 +182,10 @@ class MovieDetailViewController: UIViewController, UITableViewDataSource, UITabl
             let sections = NSIndexSet(indexesIn: range)
             self.commentTableView.reloadSections(sections as IndexSet, with: .automatic)
         }
+    }
+    
+    @objc func didReceiveCommentRefresh(_ noti: Notification){
+        RequestHandler.getCommentList(id: self.id) {}
     }
     
     @IBAction func touchUpCommentBtn(_ sender: UIButton) {
